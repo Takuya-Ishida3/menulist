@@ -10,7 +10,7 @@
             <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav">
                 <li>{!! link_to_route('signup.get', '新規登録', [], ['class' => 'nav-link']) !!}</li>
-                <li class="nav-item"><a href="#" class="nav-link">Login</a></li>
+                <li>{!! link_to_route('login', 'ログイン', [], ['class' => 'nav-link']) !!}</li>
             </ul>
         </div>
     </nav>
