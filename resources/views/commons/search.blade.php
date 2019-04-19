@@ -40,6 +40,6 @@
 <form>
     <div class="form-group row justify-content-center">
         <input type="text" class="form-control ml-3 col-sm-7">
-        <button typw="submit" class="btn btn-primary col-sm-1">検索</button>
+        <button type="submit" class="btn btn-primary col-sm-1">検索</button>
     </div>
 </form>
