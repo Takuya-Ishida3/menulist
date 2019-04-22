@@ -23,3 +23,11 @@ Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout.get');
+
+//レシピを検索・表示
+Route::get('recipes', 'RecipesController@show')->name('recipes');
+
+    Route::group(['middleware' => ['auth']], function () {
+    Route::resource('users', 'UsersController', ['only' => ['show', 'edit']]);
+    Route::resource('recipes', 'RecipesController', ['only' => ['post']]);
+});
