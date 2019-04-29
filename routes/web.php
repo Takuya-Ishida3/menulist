@@ -25,9 +25,12 @@ Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout.get');
 
 //レシピを検索・表示
-Route::get('recipes', 'RecipesController@show')->name('recipes');
 
-    Route::group(['middleware' => ['auth']], function () {
+
+Route::group(['middleware' => ['auth']], function () {
     Route::resource('users', 'UsersController', ['only' => ['show', 'edit']]);
-    Route::resource('recipes', 'RecipesController', ['only' => ['post']]);
+    Route::resource('recipes', 'RecipesController', ['only' => ['create','store','edit','update','destroy']]);
 });
+
+Route::get('recipes', 'RecipesController@index')->name('recipes');
+Route::get('recipes/{id}', 'RecipesController@show')->name('recipes.show');
