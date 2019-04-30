@@ -32,5 +32,5 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('recipes', 'RecipesController', ['only' => ['create','store','edit','update','destroy']]);
 });
 
-Route::get('recipes', 'RecipesController@index')->name('recipes');
+Route::post('recipes', 'RecipesController@index')->name('recipes');
 Route::get('recipes/{id}', 'RecipesController@show')->name('recipes.show');

@@ -14,13 +14,37 @@ class RecipesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //$recipes = Recipe::all();
+        //$value = $request->name;
         
-        $recipes = recipes()->orderBy('created_at','desc')->paginate(10);
+        //キーワードを取得
+        $keyword = $request->input('keyword');
         
-        return view ('recipes.index', $recipes);
+        //もしキーワードが入力されている場合
+        if(!empty($keyword))
+        {   
+            //料理名から検索
+            $recipes =Recipe::where('name', 'like', '%'.$keyword.'%')->paginate(5);
+
+/**
+            //材料名から検索
+            $checkwords = $request->ingredients;
+            foreach ($checkwords as $checkword) {
+            $ingredient = Ingredient::where('name', 'like', '%'.$checkword.'%');
+            $recipe = $ingredient->belongsToMany(Recipe::class,ingredients_for_cooking,ingredient_id,recipe_id)->withTimestamps()->paginate(5);
+            }
+            
+**/
+            
+        }else{//キーワードが入力されていない場合
+            $recipes = Recipe::orderBy('created_at','desc')->paginate(5);
+        }
+        
+        return view ('recipes.index', [
+            'recipes' => $recipes,
+            'keyword' => $keyword,
+        ]);
         
     }
 

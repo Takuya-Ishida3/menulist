@@ -9,7 +9,6 @@ class Recipe extends Model
     protected $fillable = ['id', 'name','image_name'];
     
     public function recipes() {
-        return $this->hasMany(Recipe::class);
+        return $this->Recipe::all();
     }
-    
 }
