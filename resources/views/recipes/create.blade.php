@@ -15,6 +15,7 @@
                     {!! Form::label('image_name', '画像アップロード') !!}
                     {!! Form::file('image_name') !!}
                 </div>
+                @include('commons.checkbox')
                 {!! Form::submit('投稿する', ['class' => 'btn btn-primary btn-block']) !!}
             {!! Form::close() !!}
         </div>

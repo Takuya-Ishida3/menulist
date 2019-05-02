@@ -29,7 +29,8 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout.get');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('users', 'UsersController', ['only' => ['show', 'edit']]);
-    Route::resource('recipes', 'RecipesController', ['only' => ['create','store','edit','update','destroy']]);
+    Route::resource('recipes', 'RecipesController', ['only' => ['create','edit','update','destroy']]);
+    Route::post('recipes/create', 'RecipesController@store')->name('recipes.store');
 });
 
 Route::post('recipes', 'RecipesController@index')->name('recipes');

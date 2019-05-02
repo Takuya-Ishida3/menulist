@@ -4,7 +4,7 @@
     <div class="show_recipes">
 
 @foreach ($recipes as $recipe)
-        
+      
       <div class="row">
         <div class="offset-sm-1 col-sm-5">
           <div class="card">
