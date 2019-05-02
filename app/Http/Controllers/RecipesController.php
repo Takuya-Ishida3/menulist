@@ -86,6 +86,9 @@ class RecipesController extends Controller
         $image_name ='';
         $image_name = $request->image_name;
         
+        $comment = '';
+        $comment = $request->comment;
+        
         $path ='';
         $path = Storage::disk('s3')->put('/',$image_name,'public');
         
@@ -96,6 +99,7 @@ class RecipesController extends Controller
         $recipe = new Recipe;
         $recipe->name = $name;
         $recipe->image_name = $path;
+        $recipe->comment = "$comment";
         $recipe->save();
         
         $recipe_id = '';

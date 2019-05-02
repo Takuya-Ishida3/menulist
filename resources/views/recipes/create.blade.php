@@ -20,6 +20,10 @@
                     {!! Form::label('processes[]', '工程') !!}
                     {!! Form::text('processes[]', null , ['class' => 'form-control'],['rows' => "3"]) !!}
                 </div>
+                <div class="form-group">
+                    {!! Form::label('comment', '簡単な料理の説明') !!}
+                    {!! Form::text('comment', null , ['class' => 'form-control'],['rows' => "3"]) !!}
+                </div>
                 {!! Form::submit('投稿する', ['class' => 'btn btn-primary btn-block']) !!}
             {!! Form::close() !!}
         </div>
