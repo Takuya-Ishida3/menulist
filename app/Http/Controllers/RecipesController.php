@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Recipe;
 use App\IngredientsForCooking;
 use App\Ingredient;
+use App\HowToCook;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Image;
@@ -90,6 +91,8 @@ class RecipesController extends Controller
         
         $values = $request->ingredients; //checkboxのname(ingredients[])から配列を取得
         
+        $processes = $request->processes; //textboxのname(processes[])から配列を取得
+        
         $recipe = new Recipe;
         $recipe->name = $name;
         $recipe->image_name = $path;
@@ -109,6 +112,14 @@ class RecipesController extends Controller
             $ingredients_for_cooking->required_amount = '1';
             $ingredients_for_cooking->save();
         }
+        
+        
+            foreach ($processes as $process) {
+                $how_to_cook = new HowToCook;
+                $how_to_cook->process = $process;
+                $how_to_cook->save();
+            }
+        
         
         
         return redirect('/');

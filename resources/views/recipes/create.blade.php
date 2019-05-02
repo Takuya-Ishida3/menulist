@@ -16,6 +16,10 @@
                     {!! Form::file('image_name') !!}
                 </div>
                 @include('commons.checkbox')
+                <div class="form-group">
+                    {!! Form::label('processes[]', '工程') !!}
+                    {!! Form::text('processes[]', null , ['class' => 'form-control'],['rows' => "3"]) !!}
+                </div>
                 {!! Form::submit('投稿する', ['class' => 'btn btn-primary btn-block']) !!}
             {!! Form::close() !!}
         </div>
