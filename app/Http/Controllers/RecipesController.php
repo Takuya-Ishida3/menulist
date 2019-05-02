@@ -116,6 +116,7 @@ class RecipesController extends Controller
         
             foreach ($processes as $process) {
                 $how_to_cook = new HowToCook;
+                $how_to_cook->recipe_id = $recipe_id;
                 $how_to_cook->process = $process;
                 $how_to_cook->save();
             }
