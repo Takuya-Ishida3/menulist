@@ -21,24 +21,30 @@ class RecipesController extends Controller
     public function index(Request $request)
     {
         //$value = $request->name;
-        
         //キーワードを取得
         $keyword = $request->input('keyword');
         $checkwords = $request->ingredients;
         
+        
         //もしキーワードが入力されている場合
         if(!empty($keyword)) {   
             //料理名から検索
-            $recipes =Recipe::where('name', 'like', '%'.$keyword.'%')->paginate(5);
+            $recipes =Recipe::where('name', 'like', '%'.$keyword.'%')->orderBy('created_at','desc')->paginate(5);
         }
         
         if(!empty($checkwords)) {
             //材料名から検索
             foreach ($checkwords as $checkword) {
             $recipes = DB::table('recipes')
+                            ->select('recipes.image_name', 'recipes.name', 'recipes.comment','recipes.id')
                             ->join('ingredients_for_cookings','recipes.id','ingredients_for_cookings.recipe_id')
                             ->join('ingredients','ingredients_for_cookings.ingredient_id','ingredients.id')
-                            ->where('ingredients.name',$checkword)->paginate(5);
+                            ->where('ingredients.name',$checkword)->orderBy('recipes.created_at','desc')->paginate(5);
+                            
+                            
+                            
+                            
+                            
             }
         }
         
@@ -62,12 +68,12 @@ class RecipesController extends Controller
     public function create()
     {
         $recipe = new Recipe;
-        //$ingredient = new Ingredient;
+        $ingredients = Ingredient::all();
         //$ingredients_for_cooking = new IngredientsForCooking;
         
         return view('recipes.create',[
             'recipe' => $recipe,
-            //'ingredient' => $ingredient,
+            'ingredients' => $ingredients,
             //'ingredients_for_cooking' => $ingredients_for_cooking,
         ]);
     }
@@ -92,7 +98,13 @@ class RecipesController extends Controller
         $path ='';
         $path = Storage::disk('s3')->put('/',$image_name,'public');
         
-        $values = $request->ingredients; //checkboxのname(ingredients[])から配列を取得
+        $ingredients = DB::table('ingredients')
+                            ->pluck('id');
+        //dd($ingredients);
+                    
+        //where('id' , $request->{'ingredient_id_' . $ingredients_id})->get;
+        
+        //dd($ingredients_id);  ok
         
         $processes = $request->processes; //textboxのname(processes[])から配列を取得
         
@@ -105,6 +117,22 @@ class RecipesController extends Controller
         $recipe_id = '';
         $recipe_id = $recipe->id;
         
+           foreach($ingredients as $ingredient){
+            $amount=$request->$ingredient;
+            if(!empty($amount)){
+               
+                $ingredients_for_cooking = new IngredientsForCooking;
+                $ingredients_for_cooking->recipe_id = $recipe_id;
+                $ingredients_for_cooking->ingredient_id = $ingredient;
+                $ingredients_for_cooking->required_amount = $amount;
+                $ingredients_for_cooking->save();
+            }
+            else{
+            }
+            
+            }
+    
+   /**     
         foreach ($values as $value) {
             //$valueとingredientsテーブルのnameが一致するもののidを取得
 	        $ingredient_id = Ingredient::where('name', $value)->value('id');
@@ -116,7 +144,7 @@ class RecipesController extends Controller
             $ingredients_for_cooking->required_amount = '1';
             $ingredients_for_cooking->save();
         }
-        
+    **/
         
             foreach ($processes as $process) {
                 $how_to_cook = new HowToCook;

@@ -12,7 +12,10 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $ingredients = App\Ingredient::all();
+    return view('welcome' , [
+            'ingredients' => $ingredients
+        ]);
 });
 
 // ユーザ登録
@@ -33,5 +36,5 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('recipes/create', 'RecipesController@store')->name('recipes.store');
 });
 
-Route::post('recipes', 'RecipesController@index')->name('recipes');
+Route::match(['get','post'],'recipes', 'RecipesController@index')->name('recipes');
 Route::get('recipes/{id}', 'RecipesController@show')->name('recipes.show');
