@@ -13,8 +13,10 @@
 
 Route::get('/', function () {
     $ingredients = App\Ingredient::all();
+    $meats = App\Ingredient::where('categories' , '肉')->get();
     return view('welcome' , [
-            'ingredients' => $ingredients
+            'ingredients' => $ingredients,
+            'meats' => $meats,
         ]);
 });
 
