@@ -36,6 +36,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('users', 'UsersController', ['only' => ['show', 'edit']]);
     Route::resource('recipes', 'RecipesController', ['only' => ['create','edit','update','destroy']]);
     Route::post('recipes/create', 'RecipesController@store')->name('recipes.store');
+    
+    Route::group(['prefix' => 'users/{id}'], function() {
+        Route::post('favorite', 'FavorRecipesController@store')->name('favor.recipe');
+        Route::delete('unfavorrite', 'FavorRecipesController@destroy')->name('unfavor.recipe');
+    });
+    
 });
 
 Route::match(['get','post'],'recipes', 'RecipesController@index')->name('recipes');

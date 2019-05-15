@@ -11,4 +11,11 @@ class Recipe extends Model
     public function recipes() {
         return $this->Recipe::all();
     }
+    
+    public function get_favoring_user()
+    {
+        return $this->belongsToMany(User::class,'favorite_recipes','recipe_id','user_id')->withTimestamps();
+    }
+    
+    
 }

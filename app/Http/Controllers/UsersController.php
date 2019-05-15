@@ -11,10 +11,14 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = User::find($id);
+        $favorite_recipes = $user->get_favorite_recipes()->paginate(5);
         
-        return view('users.show',[
-                'user' => $user,
-            ]);
+        $data = [
+            'user' => $user,
+            'favorite_recipes' => $favorite_recipes
+        ];
+        
+        return view('users.show',$data);
     }
     
     public function edit($id)
@@ -25,5 +29,4 @@ class UsersController extends Controller
                 'user' => $user,
             ]);
     }
-    
 }

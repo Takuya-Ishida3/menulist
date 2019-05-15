@@ -206,4 +206,10 @@ class RecipesController extends Controller
     {
         //
     }
+    
+    public function user_favoring_recipes()
+    {
+        //お気に入りの数をカウントする機能を入れる？
+    }
+    
 }
