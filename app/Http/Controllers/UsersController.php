@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\User;
+use App\Ingredient;
 
 class UsersController extends Controller
 {
@@ -24,9 +25,13 @@ class UsersController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
+        $ingredients = Ingredient::all();
         
-        return view('users.edit',[
+        $data= [
                 'user' => $user,
-            ]);
+                'ingredients' => $ingredients
+            ];
+        
+        return view('users.edit',$data);
     }
 }
