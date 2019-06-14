@@ -2,7 +2,7 @@
     <h1 class="text-center pt-4">献立作成機能</h1>
     @if(Auth::check())
         <div class="row mt-4">
-            <a href="#" class="offset-sm-5 col-sm-2">献立を作成する！</a>
+            {!! link_to_route('menus.index', '献立を作成する！', [], ['class' => 'offset-sm-5 col-sm-2 text-center']) !!}
         </div>
     @else
         <p class="text-center mt-4">献立作成機能を利用するにはログインが必要です</p>

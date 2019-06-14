@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Menu;
 
 class User extends Authenticatable
 {
@@ -108,5 +109,28 @@ class User extends Authenticatable
     	return $this->get_favorite_ingredient()->where('ingredient_id', $ingredientId)->exists();
     }
     
+    public function get_menu()
+    {
+	return $this->belongsToMany(Recipe::class, 'menus', 'user_id', 'recipe_id')->withPivot('id','YYYYMMDD');
+    }
+    
+    public function associate_with_menu($recipeId,$date)
+    {
+    	$this->get_menu()->attach($recipeId,['YYYYMMDD' => $date]);
+    	return true;
+    }
+    
+    public function unassociate_with_menu($id)
+    {
+        $menu = Menu::find($id);
+        //dd($menu);
+    	$menu->delete();
+    	return true;
+    }
+    
+    public function confirm_menu($recipeId)
+    {
+    	return $this->get_menu()->where('recipe_id', $recipeId)->exists();
+    }
     
 }

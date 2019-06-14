@@ -34,4 +34,14 @@ class UsersController extends Controller
         
         return view('users.edit',$data);
     }
+    
+    public function update(Request $request, $id)
+    {
+        $family_size = $request->family_size;
+        $user = User::find($id);
+        $user->family_size = $family_size;
+        $user->save();
+        
+        return back();
+    }
 }

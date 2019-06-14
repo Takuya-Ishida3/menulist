@@ -33,18 +33,31 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout.get');
 
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::resource('users', 'UsersController', ['only' => ['show', 'edit']]);
+    Route::resource('users', 'UsersController', ['only' => ['show', 'edit',]]);
+    Route::match(['get','post'],'users/{id}/edit/update', 'UsersController@update')->name('users.update');
     Route::resource('recipes', 'RecipesController', ['only' => ['create','edit','update','destroy']]);
     Route::post('recipes/create', 'RecipesController@store')->name('recipes.store');
 
     Route::group(['prefix' => 'users/{id}'], function() {
         Route::post('favor_recipe', 'FavorRecipesController@store')->name('favor.recipe');
         Route::delete('unfavor_recipe', 'FavorRecipesController@destroy')->name('unfavor.recipe');
-         Route::post('favor_ingredient', 'FavorIngredientsController@store')->name('favor.ingredient');
+        Route::post('favor_ingredient', 'FavorIngredientsController@store')->name('favor.ingredient');
         Route::delete('unfavor_ingredient', 'FavorIngredientsController@destroy')->name('unfavor.ingredient');
+        Route::post('associate_with_menu', 'MenusController@store')->name('associate_with_menu');
+        Route::delete('unassociate_with_menu', 'MenusController@destroy')->name('unassociate_with_menu');
     });
     
 });
 
 Route::match(['get','post'],'recipes', 'RecipesController@index')->name('recipes');
 Route::get('recipes/{id}', 'RecipesController@show')->name('recipes.show');
+
+/** これ不要
+Route::group(['middleware' => ['auth']], function () {
+    Route::group(['prefix' => 'recipes/{id}'], function() {
+            Route::post('menu.post', 'MenusController@store')->name('menu.post');
+    });
+});
+**/
+
+Route::get('menus','MenusController@index')->name('menus.index');

@@ -1,8 +1,4 @@
-@extends('layouts.app')
-
-@section('content')
 <div class="show_recipes">
-  @foreach ($recipes as $recipe)
       <div class="row">
         <div class="offset-sm-1 col-sm-5">
           <div class="card">
@@ -13,14 +9,10 @@
               <h1 class="card-title">{{$recipe->name}}</h1>
               <p class="card-text">{{$recipe->comment}}</p>
               @include('commons.favorite_button')
-              @include('commons.associate_with_menu_button_$recipe')
+              <a href="#" class="btn btn-primary">献立に追加</a>
+              @include('commons.datetimepicker')
     		    </div>
           </div>
         </div>
       </div>
-  @endforeach
 </div>
-
-{{ $recipes->appends(['sort' => 'created_at'])->links() }}
-
-@endsection

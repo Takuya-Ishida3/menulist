@@ -26,6 +26,7 @@
                             {!! Form::close() !!}
                         @endif
                         <a href="#" class="btn btn-primary">献立に追加</a>
+                        @include('commons.datetimepicker')
           		        </div>
                 </div>
               </div>

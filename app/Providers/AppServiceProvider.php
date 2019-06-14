@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Carbon\carbon;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -14,6 +15,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         \Schema::defaultStringLength(191);
+        Carbon::setToStringFormat('Y年n月j日');
     }
 
     /**
@@ -25,4 +27,5 @@ class AppServiceProvider extends ServiceProvider
     {
         //
     }
+    
 }
