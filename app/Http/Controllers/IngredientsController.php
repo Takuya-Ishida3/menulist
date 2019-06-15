@@ -13,7 +13,9 @@ class IngredientsController extends Controller
      */
     public function index()
     {
-        //
+        $user = \Auth::user();
+        
+        return view ('menus.ingredients_list');
     }
 
     /**

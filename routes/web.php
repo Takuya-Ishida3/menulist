@@ -45,6 +45,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::delete('unfavor_ingredient', 'FavorIngredientsController@destroy')->name('unfavor.ingredient');
         Route::post('associate_with_menu', 'MenusController@store')->name('associate_with_menu');
         Route::delete('unassociate_with_menu', 'MenusController@destroy')->name('unassociate_with_menu');
+        Route::get('menus.ingredients_list','IngredientsController@index')->name('menus.ingredients_list');
     });
     
 });

@@ -201,7 +201,7 @@
 </div>
 
 
-
+{!! link_to_route('menus.ingredients_list', '材料一覧へ', ['id' => Auth::user()->id]) !!}
 
 
 
