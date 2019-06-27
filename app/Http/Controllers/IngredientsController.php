@@ -39,7 +39,7 @@ class IngredientsController extends Controller
         {
             $sum[$ingredient_id] = array_sum(array_column($required_amounts,$ingredient_id))*$family_size;
         }
-        dump($sum);
+        //dump($sum);
         
         
         /**
