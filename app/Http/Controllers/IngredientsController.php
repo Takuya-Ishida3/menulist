@@ -17,6 +17,7 @@ class IngredientsController extends Controller
     public function index()
     {
         $user = \Auth::user();
+        $family_size = $user->value('family_size');
         $ingredients = Ingredient::all();
         $ingredient_ids = $ingredients->pluck('id');
         //dd($ingredient_ids);
@@ -36,9 +37,9 @@ class IngredientsController extends Controller
         
         foreach($ingredient_ids as $ingredient_id)
         {
-            $sum[$ingredient_id] = array_sum(array_column($required_amounts,$ingredient_id));
+            $sum[$ingredient_id] = array_sum(array_column($required_amounts,$ingredient_id))*$family_size;
         }
-        //dump($sum);
+        dump($sum);
         
         
         /**
