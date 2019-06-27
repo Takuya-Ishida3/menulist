@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Ingredient;
 
 class Recipe extends Model
 {
@@ -16,6 +17,4 @@ class Recipe extends Model
     {
         return $this->belongsToMany(User::class,'favorite_recipes','recipe_id','user_id')->withTimestamps();
     }
-    
-    
 }

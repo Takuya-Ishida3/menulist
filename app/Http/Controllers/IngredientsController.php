@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Ingredient;
+use App\Recipe;
+use Carbon\carbon;
 
 class IngredientsController extends Controller
 {
@@ -14,8 +17,45 @@ class IngredientsController extends Controller
     public function index()
     {
         $user = \Auth::user();
+        $ingredients = Ingredient::all();
+        $ingredient_ids = $ingredients->pluck('id');
+        //dd($ingredient_ids);
+        $monday = new Carbon('monday this week');
+        $sunday = new Carbon('sunday this week');
+        $recipes_ids = $user->get_menu()->whereBetween('YYYYMMDD',[$monday, $sunday])->pluck('recipes.id');
+        //dd($recipes_ids);
+        foreach($recipes_ids as $recipes_id)
+        {
+            $recipe = Recipe::find($recipes_id);
+            //dd($recipe);
+            $required_amounts[] = $recipe->belongsToMany(Ingredient::class,'ingredients_for_cookings','recipe_id','ingredient_id')->withPivot('required_amount')->pluck('required_amount','ingredient_id')->toArray();//ここでrequired_amountだけじゃなくingredient_idもとれないか？
+            //dd($required_amounts);
+        }
+        //dump($required_amounts);
+        //dd($required_amounts);
         
-        return view ('menus.ingredients_list');
+        foreach($ingredient_ids as $ingredient_id)
+        {
+            $sum[$ingredient_id] = array_sum(array_column($required_amounts,$ingredient_id));
+        }
+        //dump($sum);
+        
+        
+        /**
+        foreach ($ingredient_ids as $ingredient_id)
+        {
+            
+        }
+        //->where('ingredient_id',$ingredient_id)
+        **/
+        
+        $data = [
+            'user' => $user,
+            'ingredients' => $ingredients,
+            'sum' => $sum
+        ];
+        
+        return view ('menus.ingredients_list',$data);
     }
 
     /**

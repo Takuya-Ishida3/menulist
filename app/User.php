@@ -123,7 +123,6 @@ class User extends Authenticatable
     public function unassociate_with_menu($id)
     {
         $menu = Menu::find($id);
-        //dd($menu);
     	$menu->delete();
     	return true;
     }
@@ -131,6 +130,11 @@ class User extends Authenticatable
     public function confirm_menu($recipeId)
     {
     	return $this->get_menu()->where('recipe_id', $recipeId)->exists();
+    }
+    
+    public function get_ingredients_amount($ingredient_id)
+    {
+        return $this->belongsToMany(Ingredient::class,'ingredient_for_cookings','recipe_id','ingredient_id')->where('ingredient_id',$ingredient_id)->withPivot('required_amount')->pivot('required_amount');
     }
     
 }
