@@ -3,6 +3,9 @@
 @section('content')
     <div class="show_ingredient_list">
         <table class="table table-striped table bordered">
+            @if(!$exist)
+                <p>献立が登録されていません。</p>
+            @endif
             @foreach($ingredients as $ingredient)
                 @if($sum[$ingredient->id]!=null)
                     <tr>

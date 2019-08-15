@@ -17,4 +17,15 @@ class Recipe extends Model
     {
         return $this->belongsToMany(User::class,'favorite_recipes','recipe_id','user_id')->withTimestamps();
     }
+    
+    public function get_processes()
+    {
+        return $this->hasMany(HowToCook::class);
+    }
+    
+    public function count_processes()
+    {
+        return $this->get_processes()->count();
+    }
+    
 }

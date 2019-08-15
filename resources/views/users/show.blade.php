@@ -6,7 +6,9 @@
     <div class="favorite_recipes_index">
         <h1>ここにお気に入りしたレシピが一覧で表示されます</h1>
       <div class="show_recipes">
+        <?php $i = 0; ?>
         @foreach ($favorite_recipes as $favorite_recipe)
+        <?php $i++;$dtpId="datetimepicker".$i;?>
             <div class="row">
               <div class="offset-sm-1 col-sm-5">
                 <div class="card">

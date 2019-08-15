@@ -8,13 +8,22 @@ class FavorIngredientsController extends Controller
 {
     public function store(Request $request , $id)
     {
-        \Auth::user()->favor_ingredient($id);
-        return back();
+        if(\Auth::check()){
+            \Auth::user()->favor_ingredient($id);
+            return back();
+        }else{
+            return redirect("/");
+        }
+        
     }
     
     public function destroy($id)
     {
-        \Auth::user()->unfavor_ingredient($id);
-        return back();
+        if(\Auth::check()){
+            \Auth::user()->unfavor_ingredient($id);
+            return back(); 
+        }else{
+            return redirect("/");
+        }
     }
 }

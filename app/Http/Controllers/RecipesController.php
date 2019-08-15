@@ -181,7 +181,18 @@ class RecipesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $recipe = Recipe::find($id);
+        $ingredients = Ingredient::all();
+        $processes = $recipe->get_processes()->get();
+        $required_amounts = $recipe->belongsToMany(Ingredient::class,'ingredients_for_cookings','recipe_id','ingredient_id')->where('recipe_id',$id)->withPivot('required_amount')->pluck('required_amount','ingredient_id')->toArray();
+        $data = [
+            'id' => $id,
+            'recipe' => $recipe,
+            'ingredients' => $ingredients,
+            'processes' => $processes,
+            'required_amounts' => $required_amounts
+        ];
+        return view('recipes.edit', $data);
     }
 
     /**
@@ -193,7 +204,55 @@ class RecipesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $name ='';
+        $name = $request->name;
+        
+        $image_name ='';
+        $image_name = $request->image_name;
+        
+        $comment = '';
+        $comment = $request->comment;
+        
+        $path ='';
+        $path = Storage::disk('s3')->put('/',$image_name,'public');
+        
+        $ingredients = DB::table('ingredients')
+                            ->pluck('id');
+        //dd($ingredients);
+                    
+        //where('id' , $request->{'ingredient_id_' . $ingredients_id})->get;
+        
+        //dd($ingredients_id);  ok
+        
+        $processes = $request->processes; //textboxのname(processes[])から配列を取得
+        
+        $recipe = Recipe::find($id);
+        $recipe->name = $name;
+        $recipe->image_name = $path;
+        $recipe->comment = "$comment";
+        $recipe->save();
+        
+        DB::table('ingredients_for_cookings')->where('recipe_id',$id)->delete();
+        foreach($ingredients as $ingredient){
+        $amount=$request->$ingredient;
+        if(!empty($amount)){
+            $ingredients_for_cooking = new IngredientsForCooking;
+            $ingredients_for_cooking->recipe_id = $id;
+            $ingredients_for_cooking->ingredient_id = $ingredient;
+            $ingredients_for_cooking->required_amount = $amount;
+            $ingredients_for_cooking->save();
+        }
+        }
+            
+        DB::table('how_to_cooks')->where('recipe_id',$id)->delete();
+        foreach ($processes as $process) {
+            $how_to_cook = new HowToCook;
+            $how_to_cook->recipe_id = $id;
+            $how_to_cook->process = $process;
+            $how_to_cook->save();
+        }
+        
+        return redirect('/');
     }
 
     /**
@@ -204,12 +263,13 @@ class RecipesController extends Controller
      */
     public function destroy($id)
     {
-        //
-    }
-    
-    public function user_favoring_recipes()
-    {
-        //お気に入りの数をカウントする機能を入れる？
+        if(\Auth::check()){
+            $recipe = Recipe::find($id);
+            $recipe->delete();
+            return back();
+        }else{
+            return redirect("/");
+        }
     }
     
 }

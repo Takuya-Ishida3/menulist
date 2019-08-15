@@ -21,8 +21,14 @@ class IngredientsController extends Controller
         $ingredients = Ingredient::all();
         $ingredient_ids = $ingredients->pluck('id');
         //dd($ingredient_ids);
+        $required_amounts[] = "";
         $monday = new Carbon('monday this week');
         $sunday = new Carbon('sunday this week');
+        if($user->get_menu()->whereBetween('YYYYMMDD',[$monday, $sunday])->exists()){
+            $exist = true;
+        }else{
+            $exist= false;
+        }
         $recipes_ids = $user->get_menu()->whereBetween('YYYYMMDD',[$monday, $sunday])->pluck('recipes.id');
         //dd($recipes_ids);
         foreach($recipes_ids as $recipes_id)
@@ -41,7 +47,6 @@ class IngredientsController extends Controller
         }
         //dump($sum);
         
-        
         /**
         foreach ($ingredient_ids as $ingredient_id)
         {
@@ -53,7 +58,8 @@ class IngredientsController extends Controller
         $data = [
             'user' => $user,
             'ingredients' => $ingredients,
-            'sum' => $sum
+            'sum' => $sum,
+            'exist' => $exist
         ];
         
         return view ('menus.ingredients_list',$data);

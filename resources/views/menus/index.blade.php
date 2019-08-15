@@ -17,30 +17,29 @@
       <div class="tab-pane active" id="monday" role="tabpanel" aria-labelledby="monday-tab">
           <div class="p-3">
             {{'monday'}}
-            @foreach($monday_menus as $monday_menu)
-              <div class="show_recipes">
-                <div class="row">
-                  <div class="offset-sm-1 col-sm-5">
-                    <div class="card">
-                      <div class="recipes_images">
-              			    <img class="card-img-top" src="{{'https://s3-ap-northeast-1.amazonaws.com/menu-list/'. $monday_menu->image_name}}" alt="カードの画像">
-              		    </div>
-                      <div class="card-body">
-                        <h1 class="card-title">{{$monday_menu->name}}</h1>
-                        <p class="card-text">{{$monday_menu->comment}}</p>
-                        <a href="#" class="btn btn-primary">献立に追加</a>
-                        @include('commons.datetimepicker')
-                        @if (Auth::user()->confirm_menu($monday_menu->id))
-                          {!! Form::open(['route' => ['unassociate_with_menu', $monday_menu->pivot->id], 'method' => 'delete']) !!}
-                              {!! Form::submit('献立から削除', ['class' => "btn btn-danger"]) !!}
-                          {!! Form::close() !!}
-                        @endif
-              		    </div>
+              @foreach($monday_menus as $monday_menu)
+                <div class="show_recipes">
+                  <div class="row">
+                    <div class="offset-sm-1 col-sm-5">
+                      <div class="card">
+                        <div class="recipes_images">
+                			    <img class="card-img-top" src="{{'https://s3-ap-northeast-1.amazonaws.com/menu-list/'. $monday_menu->image_name}}" alt="カードの画像">
+                		    </div>
+                        <div class="card-body">
+                          <h1 class="card-title">{{$monday_menu->name}}</h1>
+                          <p class="card-text">{{$monday_menu->comment}}</p>
+                          <a href="#" class="btn btn-primary">献立に追加</a>
+                          @if (Auth::user()->confirm_menu($monday_menu->id))
+                            {!! Form::open(['route' => ['unassociate_with_menu', $monday_menu->pivot->id], 'method' => 'delete']) !!}
+                                {!! Form::submit('献立から削除', ['class' => "btn btn-danger"]) !!}
+                            {!! Form::close() !!}
+                          @endif
+                		    </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            @endforeach
+              @endforeach
           </div>
       </div>
       <div class="tab-pane fade" id="tuesday" role="tabpanel" aria-labelledby="tuesday-tab">
@@ -58,7 +57,6 @@
                         <h1 class="card-title">{{$tuesday_menu->name}}</h1>
                         <p class="card-text">{{$tuesday_menu->comment}}</p>
                         <a href="#" class="btn btn-primary">献立に追加</a>
-                        @include('commons.datetimepicker')
                         @if (Auth::user()->confirm_menu($tuesday_menu->id))
                           {!! Form::open(['route' => ['unassociate_with_menu', $tuesday_menu->pivot->id], 'method' => 'delete']) !!}
                               {!! Form::submit('献立から削除', ['class' => "btn btn-danger"]) !!}
@@ -87,8 +85,11 @@
                         <h1 class="card-title">{{$wednesday_menu->name}}</h1>
                         <p class="card-text">{{$wednesday_menu->comment}}</p>
                         <a href="#" class="btn btn-primary">献立に追加</a>
-                        @include('commons.datetimepicker')
-                        
+                        @if (Auth::user()->confirm_menu($wednesday_menu->id))
+                          {!! Form::open(['route' => ['unassociate_with_menu', $wednesday_menu->pivot->id], 'method' => 'delete']) !!}
+                              {!! Form::submit('献立から削除', ['class' => "btn btn-danger"]) !!}
+                          {!! Form::close() !!}
+                        @endif
               		    </div>
                     </div>
                   </div>
@@ -112,8 +113,11 @@
                         <h1 class="card-title">{{$thursday_menu->name}}</h1>
                         <p class="card-text">{{$thursday_menu->comment}}</p>
                         <a href="#" class="btn btn-primary">献立に追加</a>
-                        @include('commons.datetimepicker')
-                        
+                        @if (Auth::user()->confirm_menu($thursday_menu->id))
+                          {!! Form::open(['route' => ['unassociate_with_menu', $thursday_menu->pivot->id], 'method' => 'delete']) !!}
+                              {!! Form::submit('献立から削除', ['class' => "btn btn-danger"]) !!}
+                          {!! Form::close() !!}
+                        @endif
               		    </div>
                     </div>
                   </div>
@@ -137,8 +141,11 @@
                         <h1 class="card-title">{{$friday_menu->name}}</h1>
                         <p class="card-text">{{$friday_menu->comment}}</p>
                         <a href="#" class="btn btn-primary">献立に追加</a>
-                        @include('commons.datetimepicker')
-                        
+                        @if (Auth::user()->confirm_menu($friday_menu->id))
+                          {!! Form::open(['route' => ['unassociate_with_menu', $friday_menu->pivot->id], 'method' => 'delete']) !!}
+                              {!! Form::submit('献立から削除', ['class' => "btn btn-danger"]) !!}
+                          {!! Form::close() !!}
+                        @endif
               		    </div>
                     </div>
                   </div>
@@ -162,8 +169,11 @@
                         <h1 class="card-title">{{$saturday_menu->name}}</h1>
                         <p class="card-text">{{$saturday_menu->comment}}</p>
                         <a href="#" class="btn btn-primary">献立に追加</a>
-                        @include('commons.datetimepicker')
-                        
+                        @if (Auth::user()->confirm_menu($saturday_menu->id))
+                          {!! Form::open(['route' => ['unassociate_with_menu', $saturday_menu->pivot->id], 'method' => 'delete']) !!}
+                              {!! Form::submit('献立から削除', ['class' => "btn btn-danger"]) !!}
+                          {!! Form::close() !!}
+                        @endif
               		    </div>
                     </div>
                   </div>
@@ -187,8 +197,11 @@
                         <h1 class="card-title">{{$sunday_menu->name}}</h1>
                         <p class="card-text">{{$sunday_menu->comment}}</p>
                         <a href="#" class="btn btn-primary">献立に追加</a>
-                        @include('commons.datetimepicker')
-                        
+                        @if (Auth::user()->confirm_menu($sunday_menu->id))
+                          {!! Form::open(['route' => ['unassociate_with_menu', $sunday_menu->pivot->id], 'method' => 'delete']) !!}
+                              {!! Form::submit('献立から削除', ['class' => "btn btn-danger"]) !!}
+                          {!! Form::close() !!}
+                        @endif
               		    </div>
                     </div>
                   </div>

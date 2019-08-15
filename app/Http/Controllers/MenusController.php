@@ -10,6 +10,8 @@ class MenusController extends Controller
 {
     public function index(Request $request)
     {
+        if (\Auth::check()){
+
         $user = \Auth::user();
         //$recipes = $user->get_menu()->get();
         //$today = Carbon::today('Asia/Tokyo');
@@ -50,6 +52,9 @@ class MenusController extends Controller
         ];
         
         return view('menus.index', $data);
+        }else{
+            return redirect("/");
+        }
     }
     
     public function store(Request $request,$id)

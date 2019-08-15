@@ -28,10 +28,15 @@
                 	</div>
                     @endforeach
                 </div>
-                
+                <button type="button" id="add_button">工程を追加</button>
                 <div class="form-group">
-                    {!! Form::label('processes[]', '工程') !!}
-                    {!! Form::textarea('processes[]', null , ['class' => 'form-control'],['size' => '50x1']) !!}
+                    <div class="processes">
+                        {!! Form::label('processes[]', '工程') !!}
+                        {!! Form::textarea('processes[]', null , ['class' => 'form-control'],['size' => '50x1']) !!}
+                    </div>
+                    <div class="append_area">
+                        <!-- jsでここに工程を追加する。-->
+                    </div>
                 </div>
                 <div class="form-group">
                     {!! Form::label('comment', '簡単な料理の説明') !!}

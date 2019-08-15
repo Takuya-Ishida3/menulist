@@ -35,9 +35,14 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout.get');
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('users', 'UsersController', ['only' => ['show', 'edit',]]);
     Route::match(['get','post'],'users/{id}/edit/update', 'UsersController@update')->name('users.update');
-    Route::resource('recipes', 'RecipesController', ['only' => ['create','edit','update','destroy']]);
+    Route::resource('recipes', 'RecipesController', ['only' => ['create','destroy']]);
     Route::post('recipes/create', 'RecipesController@store')->name('recipes.store');
-
+    
+    Route::group(['prefix' => 'recipes/{id}'], function() {
+        Route::get('edit', 'RecipesController@edit')->name('recipes.edit');
+        Route::match(['get','post'],'edit/update','RecipesController@update')->name('recipes.update');
+    });
+    
     Route::group(['prefix' => 'users/{id}'], function() {
         Route::post('favor_recipe', 'FavorRecipesController@store')->name('favor.recipe');
         Route::delete('unfavor_recipe', 'FavorRecipesController@destroy')->name('unfavor.recipe');
@@ -51,7 +56,7 @@ Route::group(['middleware' => ['auth']], function () {
 });
 
 Route::match(['get','post'],'recipes', 'RecipesController@index')->name('recipes');
-Route::get('recipes/{id}', 'RecipesController@show')->name('recipes.show');
+Route::get('recipes/{recipe}/show', 'RecipesController@show')->name('recipes.show');
 
 /** これ不要
 Route::group(['middleware' => ['auth']], function () {

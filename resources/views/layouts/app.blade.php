@@ -20,21 +20,13 @@
             
         </div>
         
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/ja.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/js/tempusdominus-bootstrap-4.min.js"></script>
         <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js"></script>
-        <script type="text/javascript">
-            $(function () {
-                $('#datetimepicker').datetimepicker({
-                    locale: 'ja',
-                    dayViewHeaderFormat: 'YYYY年 M月',
-                    format: 'YYYY年MM月DD日'
-                });
-            });
-        </script>
+        <script src="{{ secure_asset('js/test.js') }}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/js/tempusdominus-bootstrap-4.min.js"></script>
     </body>
 </html>
