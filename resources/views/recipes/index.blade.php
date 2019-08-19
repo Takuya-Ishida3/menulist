@@ -23,7 +23,6 @@
               @include('commons.favorite_button')
               @include('commons.associate_with_menu_button_$recipe')
               @include('commons.edit_recipe_button')
-              @include('commons.delete_recipe_button')
     		    </div>
           </div>
         </div>

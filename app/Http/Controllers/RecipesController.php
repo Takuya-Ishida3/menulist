@@ -266,7 +266,7 @@ class RecipesController extends Controller
         if(\Auth::check()){
             $recipe = Recipe::find($id);
             $recipe->delete();
-            return back();
+            return redirect("/");
         }else{
             return redirect("/");
         }

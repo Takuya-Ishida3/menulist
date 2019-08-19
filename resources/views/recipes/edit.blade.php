@@ -66,6 +66,7 @@
                 </div>
                 {!! Form::submit('更新する',['id' => $recipe->id], ['class' => 'btn btn-primary btn-block']) !!}
             {!! Form::close() !!}
+            @include('commons.delete_recipe_button')
         </div>
     </div>
 @endsection
