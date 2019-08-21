@@ -23,7 +23,9 @@
                     <div class="offset-sm-1 col-sm-5">
                       <div class="card">
                         <div class="recipes_images">
-                			    <img class="card-img-top" src="{{'https://s3-ap-northeast-1.amazonaws.com/menu-list/'. $monday_menu->image_name}}" alt="カードの画像">
+                			    <a href="{{ route('recipes.show',$recipe->id) }}">
+                            <img class="card-img-top" src="{{'https://s3-ap-northeast-1.amazonaws.com/menu-list/'. $monday_menu->image_name}}" alt="カードの画像">
+                			    </a>
                 		    </div>
                         <div class="card-body">
                           <h1 class="card-title">{{$monday_menu->name}}</h1>

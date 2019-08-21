@@ -28,4 +28,14 @@ class Recipe extends Model
         return $this->get_processes()->count();
     }
     
+    public function get_ingredients()
+    {
+        return $this->belongsToMany(Ingredient::class,'ingredients_for_cookings','recipe_id','ingredient_id')->withTimestamps();
+    }
+    
+    public function recomend_menu()
+    {
+        
+    }
+    
 }

@@ -167,8 +167,14 @@ class RecipesController extends Controller
     public function show($id)
     {
         $recipe = Recipe::find($id);
+        $ingredients = $recipe->get_ingredients;
+        dump($ingredients);
+        $processes = $recipe->get_processes;
+        dump($processes);
         $data = [
             'recipe' => $recipe,
+            'ingredients' => $ingredients,
+            'processes' => $processes
         ];
         return view('recipes.show', $data);
     }

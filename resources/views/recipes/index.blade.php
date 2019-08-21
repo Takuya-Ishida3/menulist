@@ -15,7 +15,9 @@
         <div class="offset-sm-1 col-sm-5">
           <div class="card">
             <div class="recipes_images">
-    			    <img class="card-img-top" src="{{'https://s3-ap-northeast-1.amazonaws.com/menu-list/'. $recipe->image_name}}" alt="カードの画像">
+              <a href="{{ route('recipes.show',$recipe->id) }}">
+    			      <img class="card-img-top" src="{{'https://s3-ap-northeast-1.amazonaws.com/menu-list/'. $recipe->image_name}}" alt="カードの画像">
+    		      </a>
     		    </div>
             <div class="card-body">
               <h1 class="card-title">{{$recipe->name}}</h1>
@@ -23,6 +25,7 @@
               @include('commons.favorite_button')
               @include('commons.associate_with_menu_button_$recipe')
               @include('commons.edit_recipe_button')
+              {!! link_to_route('recipes.show', 'レシピ詳細', ['id' => $recipe->id], ['class' => 'btn btn-primary']) !!}
     		    </div>
           </div>
         </div>
