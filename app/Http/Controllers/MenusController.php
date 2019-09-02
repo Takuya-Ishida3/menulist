@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Menu;
+use App\Recipe;
+use App\Ingredient;
 use Carbon\carbon;
+
 
 class MenusController extends Controller
 {
@@ -77,4 +80,47 @@ class MenusController extends Controller
         \Auth::user()->unassociate_with_menu($id);
         return back();
     }
+    
+    public function create(Request $request)
+    {
+        $user_id = \Auth::user()->id;
+    	$favorite_ingredients = \Auth::user()->get_favorite_ingredient()->pluck('ingredient_id');
+    	$date = $request->date; //フォームに入力された日付を取得
+    	$replace = [
+            // '置換前の文字' => '置換後の文字',
+            '年' => '-',
+            '月' => '-',
+            '日' => '-',
+        ];
+        $date = strtr($date, $replace);
+        $recipes = Recipe::all();
+        foreach($recipes as $recipe){
+    	$recomended_recipes = $recipe->belongsToMany(Ingredient::class,'ingredients_for_cookings','recipe_id','ingredient_id')->wherePivot('ingredient_id',$favorite_ingredients)->pluck('recipe_id')->toArray();
+    	$recomended_recipes_id[] = $recomended_recipes;
+    	//dd($recomended_recipes_id);
+        }
+        $recomended_recipes_id = array_collapse($recomended_recipes_id);
+        $recomended_recipes_id = array_unique($recomended_recipes_id);
+        $cnt = count($recomended_recipes_id);
+        if($cnt<=5){
+            $random_int = mt_rand(2,$cnt);//最小2、最大5
+        }else{
+            $random_int = mt_rand(2,5);//最小2、最大5
+        }
+        
+        $keys = array_rand($recomended_recipes_id,$random_int);
+        
+        //dd($recomended_recipes_id);
+        
+    	foreach($keys as $key){
+    	    $menu = new Menu;
+    	    $menu->user_id = $user_id;
+    	    $menu->recipe_id = $recomended_recipes_id[$key];
+    	    $menu->YYYYMMDD = $date;
+    	    $menu->save();
+    	}
+	    return back();
+	    dump('saved');
+    }
+    
 }

@@ -23,7 +23,7 @@
                     <div class="offset-sm-1 col-sm-5">
                       <div class="card">
                         <div class="recipes_images">
-                			    <a href="{{ route('recipes.show',$recipe->id) }}">
+                			    <a href="{{ route('recipes.show',$monday_menu->id) }}">
                             <img class="card-img-top" src="{{'https://s3-ap-northeast-1.amazonaws.com/menu-list/'. $monday_menu->image_name}}" alt="カードの画像">
                 			    </a>
                 		    </div>
@@ -214,6 +214,8 @@
       </div>
   </div>
 </div>
+
+@include('commons.create_menus_button')
 
 
 {!! link_to_route('menus.ingredients_list', '材料一覧へ', ['id' => Auth::user()->id]) !!}
