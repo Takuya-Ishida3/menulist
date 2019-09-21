@@ -20,7 +20,6 @@ class RecipesController extends Controller
      */
     public function index(Request $request)
     {
-        //$value = $request->name;
         //キーワードを取得
         $keyword = $request->input('keyword');
         $checkwords = $request->ingredients;
@@ -29,7 +28,8 @@ class RecipesController extends Controller
         //もしキーワードが入力されている場合
         if(!empty($keyword)) {   
             //料理名から検索
-            $recipes =Recipe::where('name', 'like', '%'.$keyword.'%')->orderBy('created_at','desc')->paginate(5);
+            $recipes =Recipe::where('name', 'like', '%'.$keyword.'%')->orderBy('created_at','desc')->paginate(6);
+            $search_flag = 1;
         }
         
         if(!empty($checkwords)) {
@@ -39,23 +39,21 @@ class RecipesController extends Controller
                             ->select('recipes.image_name', 'recipes.name', 'recipes.comment','recipes.id')
                             ->join('ingredients_for_cookings','recipes.id','ingredients_for_cookings.recipe_id')
                             ->join('ingredients','ingredients_for_cookings.ingredient_id','ingredients.id')
-                            ->where('ingredients.name',$checkword)->orderBy('recipes.created_at','desc')->paginate(5);
-                            
-                            
-                            
-                            
-                            
+                            ->where('ingredients.name',$checkword)->orderBy('recipes.created_at','desc')->paginate(6);
             }
+            $search_flag = 1;
         }
         
         if(empty($keyword)&&empty($checkword)){
             //キーワードが入力されていない場合
-            $recipes = Recipe::orderBy('created_at','desc')->paginate(5);
+            $recipes = Recipe::orderBy('created_at','desc')->paginate(6);
+            $search_flag = 0;
         }
         
         return view ('recipes.index', [
             'recipes' => $recipes,
             'keyword' => $keyword,
+            'search_flag' => $search_flag
         ]);
         
     }
@@ -166,15 +164,24 @@ class RecipesController extends Controller
      */
     public function show($id)
     {
+        //レシピを取得
         $recipe = Recipe::find($id);
+        //材料を取得
         $ingredients = $recipe->get_ingredients;
-        dump($ingredients);
+        //工程を取得
         $processes = $recipe->get_processes;
-        dump($processes);
+        //1人に必要な材料の量を取得
+        $required_amounts = $recipe->belongsToMany(Ingredient::class,'ingredients_for_cookings','recipe_id','ingredient_id')->where('recipe_id',$id)->withPivot('required_amount')->pluck('required_amount','ingredient_id')->toArray();
+        //ユーザーの家族構成を取得
+        $user = \Auth::user();
+        $family_size = $user->family_size;
+
         $data = [
             'recipe' => $recipe,
             'ingredients' => $ingredients,
-            'processes' => $processes
+            'processes' => $processes,
+            'family_size' => $family_size,
+            'required_amounts' => $required_amounts
         ];
         return view('recipes.show', $data);
     }

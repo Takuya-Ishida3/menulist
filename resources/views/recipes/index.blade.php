@@ -3,34 +3,40 @@
 @section('content')
 <div class="show_recipes">
   <?php $i = 0; ?>
-  {{$i}}
-  @foreach ($recipes as $recipe)
-    <?php $i++;$dtpId="datetimepicker".$i;?>
-    {{$i}}
-    {{$dtpId}}
-    <div class="test"　id="#<?php echo $dtpId;?>">
-      <h1>テスト</h1>
-    </div>
-      <div class="row">
-        <div class="offset-sm-1 col-sm-5">
-          <div class="card">
-            <div class="recipes_images">
-              <a href="{{ route('recipes.show',$recipe->id) }}">
-    			      <img class="card-img-top" src="{{'https://s3-ap-northeast-1.amazonaws.com/menu-list/'. $recipe->image_name}}" alt="カードの画像">
-    		      </a>
-    		    </div>
-            <div class="card-body">
-              <h1 class="card-title">{{$recipe->name}}</h1>
-              <p class="card-text">{{$recipe->comment}}</p>
-              @include('commons.favorite_button')
-              @include('commons.associate_with_menu_button_$recipe')
-              @include('commons.edit_recipe_button')
-              {!! link_to_route('recipes.show', 'レシピ詳細', ['id' => $recipe->id], ['class' => 'btn btn-primary']) !!}
-    		    </div>
-          </div>
-        </div>
-      </div>
-  @endforeach
+    <?php
+      if($search_flag == 1){
+        ///検索した場合
+        print("検索結果を表示中");
+      }elseif($search_flag == 0){
+        print("全レシピを表示中");
+      }
+    ?>
+  <div class="card-columns">
+    @foreach ($recipes as $recipe)
+      <?php $i++;$dtpId="datetimepicker".$i;?>
+            <div class="card img-thumbnail">
+              <div class="recipes_images">
+                <a href="{{ route('recipes.show',$recipe->id) }}">
+      			      <img class="card-img-top" src="{{'https://s3-ap-northeast-1.amazonaws.com/menu-list/'. $recipe->image_name}}" alt="カードの画像">
+      		      </a>
+      		    </div>
+              <div class="card-body">
+                <h3 class="card-title">{{$recipe->name}}</h3>
+                <p class="card-text">{{$recipe->comment}}</p>
+                <div class="row mb-2">
+                  <div class="col-6">
+                    {!! link_to_route('recipes.show', 'レシピ詳細', ['id' => $recipe->id], ['class' => 'btn btn-primary btn-sm']) !!}
+                  </div>
+                  <div class="col-6">
+                    @include('commons.favorite_button')
+                  </div>
+                </div>
+                @include('commons.associate_with_menu_button_$recipe')
+      		    </div>
+            </div>
+    @endforeach    
+  </div>
+  
 </div>
 
 {{ $recipes->appends(['sort' => 'created_at'])->links() }}

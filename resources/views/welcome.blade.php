@@ -1,13 +1,48 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="menu_search">
+    <div class="top">
         <div class="center jumbotron jumbotron-extend">
-            <div class="text-center mt-5">
-                <h1>Welcome to the Menu-list</h1>
+            <div class="title">
+                <div class="text-center">
+                    <h1>Welcome to Menu-list</h1>
+                </div>
             </div>
+            @include('commons.search')
         </div>
-        @include('commons.search')
+    </div>
+    <div class="about">
+        <div class="border-bottom text-center mb-4">
+            <p>今日の夕飯が思いつかないな～</p>
+            <p>そんな時はMenu-listにお任せ！</p>
+            <p>ボタン1つで1週間分の献立が作成できちゃいます!</p>
+        </div>
+        <div class="row">
+            <div class="box offset-sm-2 col-sm-2">
+                <div class="box_img">
+                    <img src="{{ asset('/img/search.png') }}"></img>
+                </div>
+                <div class="box_contents">
+                    <p>レシピを検索！</p>
+                </div>
+            </div>
+            <div class="box offset-sm-1 col-sm-2">
+                <div class="box_img">
+                    <img src="{{ asset('/img/add.png') }}"></img>
+                </div>
+                <div class="box_contents">
+                    <p>献立に追加して<br>買物リストを作成</p>
+                </div>
+            </div>
+            <div class="box offset-sm-1 col-sm-2">
+                <div class="box_img">
+                    <img src="{{ asset('/img/cart.png') }}"></img>
+                </div>
+                <div class="box_contents">
+                    <p>リストを手に、<br>買物へ！</p>
+                </div>
+            </div>
+        </div>    
     </div>
     @include('commons.make_menu')
 @endsection
