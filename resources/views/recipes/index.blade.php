@@ -21,17 +21,20 @@
       		      </a>
       		    </div>
               <div class="card-body">
-                <h3 class="card-title">{{$recipe->name}}</h3>
-                <p class="card-text">{{$recipe->comment}}</p>
+                <div class="row">
+                  <div class="col-7 border-bottom">
+                    <h5 class="card-title">{{$recipe->name}}</h5>
+                  </div>
+                  <dic class="col-5 border-bottom">
+                    @include('commons.favorite_button')
+                  </dic>
+                </div>
+                <p class="card-text pb-2 border-bottom">{{$recipe->comment}}</p>
                 <div class="row mb-2">
                   <div class="col-6">
-                    {!! link_to_route('recipes.show', 'レシピ詳細', ['id' => $recipe->id], ['class' => 'btn btn-primary btn-sm']) !!}
-                  </div>
-                  <div class="col-6">
-                    @include('commons.favorite_button')
+                    {!! link_to_route('recipes.show', 'レシピ詳細', ['id' => $recipe->id], ['class' => 'btn btn-primary btn-sm btn-block']) !!}
                   </div>
                 </div>
-                @include('commons.associate_with_menu_button_$recipe')
       		    </div>
             </div>
     @endforeach    

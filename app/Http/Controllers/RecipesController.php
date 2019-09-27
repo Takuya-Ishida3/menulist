@@ -22,8 +22,8 @@ class RecipesController extends Controller
     {
         //キーワードを取得
         $keyword = $request->input('keyword');
+        //チェックされた材料を取得
         $checkwords = $request->ingredients;
-        
         
         //もしキーワードが入力されている場合
         if(!empty($keyword)) {   
@@ -64,15 +64,24 @@ class RecipesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        $recipe = new Recipe;
+    {   
+        if(\Auth::user()->admin_flag != 1){
+            return back();
+        }
+        
+        //材料を全て取得
         $ingredients = Ingredient::all();
-        //$ingredients_for_cooking = new IngredientsForCooking;
+        $meats = Ingredient::where('categories' , '肉類')->get();
+        $seafoods = Ingredient::where('categories' , '魚介類')->get();
+        $vegetables_fruits = Ingredient::where('categories' , '野菜・果物')->get();
+        $others = Ingredient::where('categories' , 'その他')->get();
         
         return view('recipes.create',[
-            'recipe' => $recipe,
             'ingredients' => $ingredients,
-            //'ingredients_for_cooking' => $ingredients_for_cooking,
+            'meats' => $meats,
+            'seafoods' => $seafoods,
+            'vegetables_fruits' => $vegetables_fruits,
+            'others' => $others
         ]);
     }
 
@@ -84,76 +93,71 @@ class RecipesController extends Controller
      */
     public function store(Request $request)
     {   
+        //レシピの名前を取得
         $name ='';
         $name = $request->name;
         
+        //レシピの画像を取得
         $image_name ='';
         $image_name = $request->image_name;
-        
-        $comment = '';
-        $comment = $request->comment;
-        
         $path ='';
         $path = Storage::disk('s3')->put('/',$image_name,'public');
         
-        $ingredients = DB::table('ingredients')
-                            ->pluck('id');
-        //dd($ingredients);
-                    
-        //where('id' , $request->{'ingredient_id_' . $ingredients_id})->get;
+        //レシピのコメントを取得
+        $comment = '';
+        $comment = $request->comment;
+    
+        //textboxのname(processes[])から配列を取得
+        $processes = $request->processes; 
         
-        //dd($ingredients_id);  ok
+        //バリデーション
+        $validate_recipe = $request->validate([
+    	        'name' => 'required',
+    	        'image_name' => 'required',
+    	        'comment' => 'required'
+    	]);
         
-        $processes = $request->processes; //textboxのname(processes[])から配列を取得
-        
+        //レシピを保存
         $recipe = new Recipe;
         $recipe->name = $name;
         $recipe->image_name = $path;
         $recipe->comment = "$comment";
         $recipe->save();
         
+        //レシピidを取得
         $recipe_id = '';
         $recipe_id = $recipe->id;
         
-           foreach($ingredients as $ingredient){
+        //材料のidを取得
+        $ingredients = DB::table('ingredients')->pluck('id');
+        
+        foreach($ingredients as $ingredient){
+            
+            //材料の分量を取得
             $amount=$request->$ingredient;
+        
             if(!empty($amount)){
-               
+                //材料の分量を保存
                 $ingredients_for_cooking = new IngredientsForCooking;
                 $ingredients_for_cooking->recipe_id = $recipe_id;
                 $ingredients_for_cooking->ingredient_id = $ingredient;
                 $ingredients_for_cooking->required_amount = $amount;
                 $ingredients_for_cooking->save();
             }
-            else{
-            }
-            
-            }
-    
-   /**     
-        foreach ($values as $value) {
-            //$valueとingredientsテーブルのnameが一致するもののidを取得
-	        $ingredient_id = Ingredient::where('name', $value)->value('id');
-	        $ingredients_for_cooking = '';
-            $ingredients_for_cooking = new IngredientsForCooking;
-            $ingredients_for_cooking->recipe_id = $recipe_id;
-            $ingredients_for_cooking->ingredient_id = $ingredient_id;
-            //$ingredients_for_cooking->required_amount = $required_amount;
-            $ingredients_for_cooking->required_amount = '1';
-            $ingredients_for_cooking->save();
-        }
-    **/
+        
+        $validate_process = $request->validate([
+    	        'process' => 'required',
+    	]);
         
             foreach ($processes as $process) {
+                //工程を保存
                 $how_to_cook = new HowToCook;
                 $how_to_cook->recipe_id = $recipe_id;
                 $how_to_cook->process = $process;
                 $how_to_cook->save();
             }
-        
-        
-        
-        return redirect('/');
+            return redirect('/');
+        }
     }
 
     /**
@@ -162,6 +166,7 @@ class RecipesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+     
     public function show($id)
     {
         //レシピを取得
@@ -174,7 +179,13 @@ class RecipesController extends Controller
         $required_amounts = $recipe->belongsToMany(Ingredient::class,'ingredients_for_cookings','recipe_id','ingredient_id')->where('recipe_id',$id)->withPivot('required_amount')->pluck('required_amount','ingredient_id')->toArray();
         //ユーザーの家族構成を取得
         $user = \Auth::user();
-        $family_size = $user->family_size;
+        if(\Auth::check()){
+            //ログインユーザーなら家族構成を取得
+            $family_size = $user->family_size;
+        }else{
+            //ゲストなら1人とする
+            $family_size = 1;
+        }
 
         $data = [
             'recipe' => $recipe,
@@ -194,9 +205,13 @@ class RecipesController extends Controller
      */
     public function edit($id)
     {
+        //レシピを取得
         $recipe = Recipe::find($id);
+        //材料を全て取得
         $ingredients = Ingredient::all();
+        //工程を取得
         $processes = $recipe->get_processes()->get();
+        //材料の分量を取得
         $required_amounts = $recipe->belongsToMany(Ingredient::class,'ingredients_for_cookings','recipe_id','ingredient_id')->where('recipe_id',$id)->withPivot('required_amount')->pluck('required_amount','ingredient_id')->toArray();
         $data = [
             'id' => $id,
@@ -217,48 +232,67 @@ class RecipesController extends Controller
      */
     public function update(Request $request, $id)
     {
+        //レシピの名前を取得
         $name ='';
         $name = $request->name;
         
+        //画像の名前を取得
         $image_name ='';
         $image_name = $request->image_name;
         
+        //コメントを取得
         $comment = '';
         $comment = $request->comment;
         
+        //画像のパスを取得
         $path ='';
         $path = Storage::disk('s3')->put('/',$image_name,'public');
         
-        $ingredients = DB::table('ingredients')
-                            ->pluck('id');
-        //dd($ingredients);
-                    
-        //where('id' , $request->{'ingredient_id_' . $ingredients_id})->get;
+        //材料のidを取得
+        $ingredients = DB::table('ingredients')->pluck('id');
         
-        //dd($ingredients_id);  ok
-        
+        //工程を取得
         $processes = $request->processes; //textboxのname(processes[])から配列を取得
         
+        $validate_recipe = $request->validate([
+    	        'name' => 'required',
+    	        'image_name' => 'required',
+    	        'comment' => 'required'
+    	]);
+        
+        //レシピを保存する
         $recipe = Recipe::find($id);
         $recipe->name = $name;
         $recipe->image_name = $path;
         $recipe->comment = "$comment";
         $recipe->save();
         
+        //更新するレシピの分量を一度削除する
         DB::table('ingredients_for_cookings')->where('recipe_id',$id)->delete();
+        
         foreach($ingredients as $ingredient){
-        $amount=$request->$ingredient;
-        if(!empty($amount)){
-            $ingredients_for_cooking = new IngredientsForCooking;
-            $ingredients_for_cooking->recipe_id = $id;
-            $ingredients_for_cooking->ingredient_id = $ingredient;
-            $ingredients_for_cooking->required_amount = $amount;
-            $ingredients_for_cooking->save();
-        }
-        }
+            //分量を取得
+            $amount=$request->$ingredient;
             
+            if(!empty($amount)){
+                //分量を保存
+                $ingredients_for_cooking = new IngredientsForCooking;
+                $ingredients_for_cooking->recipe_id = $id;
+                $ingredients_for_cooking->ingredient_id = $ingredient;
+                $ingredients_for_cooking->required_amount = $amount;
+                $ingredients_for_cooking->save();
+            }
+        }
+        
+        //工程を一度削除
         DB::table('how_to_cooks')->where('recipe_id',$id)->delete();
+        
+        $validate_process = $request->validate([
+    	        'process' => 'required'
+    	]);
+    	
         foreach ($processes as $process) {
+            //工程を保存
             $how_to_cook = new HowToCook;
             $how_to_cook->recipe_id = $id;
             $how_to_cook->process = $process;
@@ -277,7 +311,9 @@ class RecipesController extends Controller
     public function destroy($id)
     {
         if(\Auth::check()){
+            //レシピを取得
             $recipe = Recipe::find($id);
+            //取得したレシピを削除
             $recipe->delete();
             return redirect("/");
         }else{

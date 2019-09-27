@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  for(var i=0; i<6; i++){
+  for(var i=0; i<=6; i++){
   $('#datetimepicker'+i).datetimepicker({
     locale: 'ja',
     dayViewHeaderFormat: 'YYYY年 M月',
@@ -14,4 +14,6 @@ $(document).ready(function() {
     const clonedForm = document.querySelector(".processes").cloneNode(true);
     $(".append_area").append(clonedForm);
   });
+  
 });
+

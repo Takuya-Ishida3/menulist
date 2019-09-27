@@ -13,10 +13,16 @@
 
 Route::get('/', function () {
     $ingredients = App\Ingredient::all();
-    $meats = App\Ingredient::where('categories' , '肉')->get();
+    $meats = App\Ingredient::where('categories' , '肉類')->get();
+    $seafoods = App\Ingredient::where('categories' , '魚介類')->get();
+    $vegetables_fruits = App\Ingredient::where('categories' , '野菜・果物')->get();
+    $others = App\Ingredient::where('categories' , 'その他')->get();
     return view('welcome' , [
             'ingredients' => $ingredients,
             'meats' => $meats,
+            'seafoods' => $seafoods,
+            'vegetables_fruits' => $vegetables_fruits,
+            'others' => $others
         ]);
 });
 

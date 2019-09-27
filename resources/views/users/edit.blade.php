@@ -1,23 +1,29 @@
 @extends('layouts.app')
 
 @section('content')
-    <h4>こんにちは、{{ $user->name }}さん</h4>
+    <h4 class="mt-2">こんにちは、{{ $user->name }}さん</h4>
     <p>アカウント設定画面です。</p>
     <div class="favorite_ingredients">
         <div class="about text-center">
             <h5>材料をお気に入りしましょう！</h5>
             <p>お気に入り登録すると<br>献立提案機能が使えます</p>
         </div>
+        @include('commons.acordion_favorite_ingredients')
+        
+        
+        
+        <!--
         <div class="row">
             @foreach($ingredients as $ingredient)
-                <div class="col-xs-2 col-sm-2 text-center m-2">
+                <div class="col-7 offset-sm-1 col-sm-3 mb-2">
                     <span class="align-middle">{{$ingredient->name}}</span>
                 </div>
-                <div class="col-xs-4 col-sm-3 m-2">
+                <div class="col-3 col-sm-2 mb-2">
                     @include('commons.favorite_ingredient_button')
                 </div>
             @endforeach
         </div>
+        -->
     </div>
     <div class="family_size">
         <div class="about text-center">

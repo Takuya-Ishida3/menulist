@@ -12,30 +12,32 @@
         <div class="text-center m-2">
             <h5>お気に入りレシピ一覧</h5>
         </div>
-        
         <div class="show_recipes">
+            @if($count->isEmpty())
+                <h5 class="text-center mt-5">お気に入りのレシピはありません。</h5>
+            @endif
             <?php $i = 0; ?>
             <div class="card-columns">
-                @foreach ($favorite_recipes as $favorite_recipe)
+                @foreach ($favorite_recipes as $recipe)
                 <?php $i++;$dtpId="datetimepicker".$i;?>
                     <div class="card img-thumbnail">
                         <div class="recipes_images">
-                  		    <img class="card-img-top" src="{{'https://s3-ap-northeast-1.amazonaws.com/menu-list/'. $favorite_recipe->image_name}}" alt="カードの画像">
+                            <a href="{{ route('recipes.show',$recipe->id) }}">
+                  		        <img class="card-img-top" src="{{'https://s3-ap-northeast-1.amazonaws.com/menu-list/'. $recipe->image_name}}" alt="カードの画像">
+                  		    </a>
                   		</div>
                         <div class="card-body">
-                            <h1 class="card-title">{{$favorite_recipe->name}}</h1>
-                            <p class="card-text">{{$favorite_recipe->comment}}</p>
-                            @if (Auth::user()->is_favoring($favorite_recipe->id))
-                                {!! Form::open(['route' => ['unfavor.recipe', $favorite_recipe->id], 'method' => 'delete']) !!}
-                                    {!! Form::submit('Unfavor', ['class' => "btn btn-danger"]) !!}
-                                {!! Form::close() !!}
-                            @else
-                                {!! Form::open(['route' => ['favor.recipe', $favorite_recipe->id]]) !!}
-                                    {!! Form::submit('Favor', ['class' => "btn btn-primary"]) !!}
-                                {!! Form::close() !!}
-                            @endif
-                            <a href="#" class="btn btn-primary">献立に追加</a>
-                            @include('commons.datetimepicker')
+                            <h5 class="card-title border-bottom pb-2">{{$recipe->name}}</h5>
+                            <p class="card-text border-bottom pb-2">{{$recipe->comment}}</p>
+                            <div class="row mb-2">
+                                <div class="col-7">
+                                    {!! link_to_route('recipes.show', 'レシピ詳細', ['id' => $recipe->id], ['class' => 'btn btn-primary']) !!}
+                                </div>
+                                <div class="col-5">
+                                    @include('commons.favorite_button')
+                                </div>
+                            </div>
+                            @include('commons.associate_with_menu_button_$recipe')
                   	    </div>
                     </div>
                 @endforeach

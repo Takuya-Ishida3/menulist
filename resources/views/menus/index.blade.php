@@ -1,18 +1,18 @@
 @extends('layouts.app')
 @section('content')
-  <div class="container-fluid">
-    <ul class="nav nav-tabs" role="tablist">
-      <li class="nav-item"> <a class="nav-link active" role="tab" href="#monday" id="monday-tab" data-toggle="tab" aria-controls="monday" aria-selected="true">{{$monday}}</a> </li>
-      <li class="nav-item"> <a class="nav-link" role="tab" href="#tuesday" id="tuesday-tab" data-toggle="tab" aria-controls="tuesday" aria-selected="false">{{$tuesday}}</a> </li>
-      <li class="nav-item"> <a class="nav-link" role="tab" href="#wednesday" id="wednesday-tab" data-toggle="tab" aria-controls="wednesday" aria-selected="false">{{$wednesday}}</a> </li>
-      <li class="nav-item"> <a class="nav-link" role="tab" href="#thursday" id="thursday-tab" data-toggle="tab" aria-controls="thursday" aria-selected="false">{{$thursday}}</a> </li>
-      <li class="nav-item"> <a class="nav-link" role="tab" href="#friday" id="friday-tab" data-toggle="tab" aria-controls="friday" aria-selected="false">{{$friday}}</a> </li>
-      <li class="nav-item"> <a class="nav-link" role="tab" href="#saturday" id="saturday-tab" data-toggle="tab" aria-controls="saturday" aria-selected="false">{{$saturday}}</a> </li>
-      <li class="nav-item"> <a class="nav-link" role="tab" href="#sunday" id="sunday-tab" data-toggle="tab" aria-controls="sunday" aria-selected="false">{{$sunday}}</a> </li>
-    </ul>
+    <div class="menus_tab mt-2 mb-2">
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item"> <a class="nav-link active" role="tab" href="#monday" id="monday-tab" data-toggle="tab" aria-controls="monday" aria-selected="true">{{$monday}}(月)</a> </li>
+        <li class="nav-item"> <a class="nav-link" role="tab" href="#tuesday" id="tuesday-tab" data-toggle="tab" aria-controls="tuesday" aria-selected="false">{{$tuesday}}(火)</a> </li>
+        <li class="nav-item"> <a class="nav-link" role="tab" href="#wednesday" id="wednesday-tab" data-toggle="tab" aria-controls="wednesday" aria-selected="false">{{$wednesday}}(水)</a> </li>
+        <li class="nav-item"> <a class="nav-link" role="tab" href="#thursday" id="thursday-tab" data-toggle="tab" aria-controls="thursday" aria-selected="false">{{$thursday}}(木)</a> </li>
+        <li class="nav-item"> <a class="nav-link" role="tab" href="#friday" id="friday-tab" data-toggle="tab" aria-controls="friday" aria-selected="false">{{$friday}}(金)</a> </li>
+        <li class="nav-item"> <a class="nav-link" role="tab" href="#saturday" id="saturday-tab" data-toggle="tab" aria-controls="saturday" aria-selected="false">{{$saturday}}(土)</a> </li>
+        <li class="nav-item"> <a class="nav-link" role="tab" href="#sunday" id="sunday-tab" data-toggle="tab" aria-controls="sunday" aria-selected="false">{{$sunday}}(日)</a> </li>
+      </ul>
+    </div>
     <div class="tab-content">
       <div class="tab-pane active" id="monday" role="tabpanel" aria-labelledby="monday-tab">
-        {{'monday'}}
         <div class="card-columns">
           @foreach($monday_menus as $monday_menu)
             <div class="show_recipes">
@@ -35,12 +35,12 @@
             </div>
           @endforeach
         </div>
+        <?php $i = 0;?>
         @if($monday_menus->isEmpty())
           @include('commons.create_menus_button')
         @endif
       </div>
       <div class="tab-pane fade" id="tuesday" role="tabpanel" aria-labelledby="tuesday-tab">
-        {{'tuesday'}}
         <div class="card-columns">
           @foreach($tuesday_menus as $tuesday_menu)
             <div class="show_recipes">
@@ -61,12 +61,12 @@
             </div>
           @endforeach
         </div>
+        <?php $i++; ?>
         @if($tuesday_menus->isEmpty())
           @include('commons.create_menus_button')
         @endif
       </div>
     	<div class="tab-pane fade" id="wednesday" role="tabpanel" aria-labelledby="wednesday-tab">
-        {{'wednesday'}}
         <div class="card-columns">
           @foreach($wednesday_menus as $wednesday_menu)
             <div class="show_recipes">
@@ -87,12 +87,12 @@
             </div>
           @endforeach
         </div>
+        <?php $i++; ?>
         @if($wednesday_menus->isEmpty())
           @include('commons.create_menus_button')
         @endif
       </div> 
       <div class="tab-pane" id="thursday" role="tabpanel" aria-labelledby="thursday-tab">
-        {{'thursday'}}
         <div class="card-columns">
           @foreach($thursday_menus as $thursday_menu)
             <div class="show_recipes">
@@ -113,12 +113,12 @@
             </div>
           @endforeach
         </div>
-          @if($thursday_menus->isEmpty())
-            @include('commons.create_menus_button')
-          @endif
+        <?php $i++; ?>
+        @if($thursday_menus->isEmpty())
+          @include('commons.create_menus_button')
+        @endif
       </div>
       <div class="tab-pane fade" id="friday" role="tabpanel" aria-labelledby="friday-tab">
-        {{'friday'}}
         <div class="card-columns">
           @foreach($friday_menus as $friday_menu)
             <div class="show_recipes">
@@ -139,12 +139,12 @@
             </div>
             @endforeach
         </div>
+        <?php $i++; ?>
         @if($friday_menus->isEmpty())
           @include('commons.create_menus_button')
         @endif
       </div>
       <div class="tab-pane fade" id="saturday" role="tabpanel" aria-labelledby="saturday-tab">
-        {{'saturday'}}
         <div class="card-columns">
           @foreach($saturday_menus as $saturday_menu)
             <div class="show_recipes">
@@ -165,12 +165,12 @@
             </div>
           @endforeach
         </div>
+        <?php $i++; ?>
         @if($saturday_menus->isEmpty())
           @include('commons.create_menus_button')
         @endif
       </div>
       <div class="tab-pane" id="sunday" role="tabpanel" aria-labelledby="sunday-tab">
-        {{'sunday'}}
         <div class="card-columns">
           @foreach($sunday_menus as $sunday_menu)
             <div class="show_recipes">
@@ -191,11 +191,13 @@
             </div>
           @endforeach
         </div>
+        <?php $i++; ?>
           @if($sunday_menus->isEmpty())
             @include('commons.create_menus_button')
           @endif
       </div>
     </div>
-  </div>
-  {!! link_to_route('menus.ingredients_list', '材料一覧へ', ['id' => Auth::user()->id]) !!}
+    <div class="mt-2">
+      {!! link_to_route('menus.ingredients_list', '材料一覧へ', ['id' => Auth::user()->id]) !!}
+    </div>
 @endsection

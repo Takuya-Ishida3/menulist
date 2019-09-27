@@ -1,11 +1,15 @@
     @if(Auth::check())
         @if (Auth::user()->is_favoring($recipe->id))
             {!! Form::open(['route' => ['unfavor.recipe', $recipe->id], 'method' => 'delete']) !!}
-                {!! Form::submit('お気に入り解除', ['class' => "btn btn-danger btn-sm"]) !!}
+                <button type="submit" class="btn btn-link btn-sm">
+                    <i class="fas fa-heart fa-lg"></i>
+                </button>
             {!! Form::close() !!}
         @else
             {!! Form::open(['route' => ['favor.recipe', $recipe->id]]) !!}
-                {!! Form::submit('お気に入り', ['class' => "btn btn-primary btn-sm"]) !!}
+                <button type="submit" class="btn btn-link btn-sm">
+                    <i class="far fa-heart fa-lg"></i>
+                </button>
             {!! Form::close() !!}
         @endif
     @endif

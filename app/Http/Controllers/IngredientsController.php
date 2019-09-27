@@ -16,44 +16,41 @@ class IngredientsController extends Controller
      */
     public function index()
     {
+        //ログイン
         $user = \Auth::user();
+        //家族構成を取得
         $family_size = $user->value('family_size');
+        //材料を全て取得
         $ingredients = Ingredient::all();
+        //材料のidを取得
         $ingredient_ids = $ingredients->pluck('id');
-        //dd($ingredient_ids);
+        //初期化
         $required_amounts[] = "";
+        //今週の月曜の日付を取得
         $monday = new Carbon('monday this week');
+        //今週の日曜の日付を取得
         $sunday = new Carbon('sunday this week');
+        //月曜から日曜に献立があるか確認
         if($user->get_menu()->whereBetween('YYYYMMDD',[$monday, $sunday])->exists()){
             $exist = true;
         }else{
             $exist= false;
         }
+        //今週の月曜から日曜の献立に登録されているレシピidを取得
         $recipes_ids = $user->get_menu()->whereBetween('YYYYMMDD',[$monday, $sunday])->pluck('recipes.id');
-        //dd($recipes_ids);
         foreach($recipes_ids as $recipes_id)
         {
+            //今週の献立のレシピを取得
             $recipe = Recipe::find($recipes_id);
-            //dd($recipe);
-            $required_amounts[] = $recipe->belongsToMany(Ingredient::class,'ingredients_for_cookings','recipe_id','ingredient_id')->withPivot('required_amount')->pluck('required_amount','ingredient_id')->toArray();//ここでrequired_amountだけじゃなくingredient_idもとれないか？
-            //dd($required_amounts);
+            //レシピに必要な材料とその分量を取得
+            $required_amounts[] = $recipe->belongsToMany(Ingredient::class,'ingredients_for_cookings','recipe_id','ingredient_id')->withPivot('required_amount')->pluck('required_amount','ingredient_id')->toArray();
         }
-        //dump($required_amounts);
-        //dd($required_amounts);
         
         foreach($ingredient_ids as $ingredient_id)
         {
+            //必要な材料の分量を合計、家族全員で必要な量に換算
             $sum[$ingredient_id] = array_sum(array_column($required_amounts,$ingredient_id))*$family_size;
         }
-        //dump($sum);
-        
-        /**
-        foreach ($ingredient_ids as $ingredient_id)
-        {
-            
-        }
-        //->where('ingredient_id',$ingredient_id)
-        **/
         
         $data = [
             'user' => $user,
