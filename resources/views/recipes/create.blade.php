@@ -16,28 +16,6 @@
                 <div class="border-top pt-4">
                     <h5 class="mt-2 mb-2">分量を入力してください</h5>
                     @include('commons.acordion_create_recipes')
-                    
-                    
-                    
-                    
-                    
-                    
-                    <!--
-                    @foreach($ingredients as $ingredient)
-                    <div class="row">
-                        <div class="form-group col-sm-12 m-0">
-                    	    <label for="ingredient_id_{{ $ingredient->id }}">{{ $ingredient->name }}</label>
-                    	</div>
-                    	<div class="col-8">
-                    	    <input type="text" class="form-control" name="{{ $ingredient->id }}">
-                    	</div>
-                    	<div class="col-4">
-                    	    <p>{{ $ingredient->unit }}</p>
-                    	</div>
-                	</div>
-                    @endforeach
-                    -->
-                    
                 </div>
                 <button type="button" id="add_button" class="mt-2 mb-2">工程を追加</button>
                 <div class="form-group">
@@ -46,7 +24,7 @@
                         {!! Form::textarea('processes[]', null , ['class' => 'form-control'],['size' => '50x1']) !!}
                     </div>
                     <div class="append_area">
-                        
+                    <!-- DOM 追加 -->
                     </div>
                 </div>
                 <div class="form-group">

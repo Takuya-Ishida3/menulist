@@ -5,7 +5,7 @@
             <?php $dtpId="datetimepicker".$i;?>
             @include('commons.datetimepicker')
         </div>
-        <div class="col-sm-1 mb-2">
+        <div class="offset-1 col-sm-1 mb-2">
             {!! Form::submit('献立提案', ['class' => "btn btn-primary float-right"]) !!}
         </div>
     </div>

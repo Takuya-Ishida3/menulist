@@ -11,35 +11,15 @@
                     {!! Form::label('name', 'レシピ名') !!}
                     {!! Form::text('name', $recipe->name , ['class' => 'form-control']) !!}
                 </div>
+                <img class="card-img-top" src="{{'https://s3-ap-northeast-1.amazonaws.com/menu-list/'. $recipe->image_name}}" alt="カードの画像">
                 <div class="form-group">
                     {!! Form::label('image_name', '画像アップロード') !!}
                     {!! Form::file('image_name') !!}
                 </div>
                 <div class="border-top pt-4">
                     <h5 class="mt-2 mb-2">分量を入力してください</h5>
-                    @foreach($ingredients as $ingredient)
-                    <div class="row">
-                        <div class="form-group col-sm-12 m-0">
-                            <label for="ingredient_id_{{ $ingredient->id }}">{{ $ingredient->name }}</label>
-                        </div>
-                    	    <?php
-                    	        $search_id = $ingredient['id'];
-                    	        $result = array_key_exists($search_id, $required_amounts);
-                                if($result){
-                                    $amount = $required_amounts[$search_id];
-                                }else{
-                                    $amount = "";
-                                }
-                            ?>
-                        <div class="col-8">
-                            <input type="text" class="form-control" name="{{ $ingredient->id }}" value="{{ $amount }}">
-                        </div>
-                    	<div class="col-4">
-                    	    <p>{{ $ingredient->unit }}</p>
-                    	</div>
-                    </div>
-                    @endforeach
                 </div>
+                @include('commons.acordion_edit_recipes')
                 <button type="button" id="add_button" class="mt-2 mb-2">工程を追加</button>
                 <?php $i=0; ?>
                 @if (empty($processes->toArray()))

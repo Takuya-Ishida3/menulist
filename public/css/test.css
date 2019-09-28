@@ -83,6 +83,10 @@ strong {
     color:orangered;
 }
 
+pre {
+	white-space: pre-wrap ;
+}
+
 @media screen and (min-width:768px) {
     .jumbotron-extend {
     height: 250px;

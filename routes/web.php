@@ -64,13 +64,4 @@ Route::group(['middleware' => ['auth']], function () {
 
 Route::match(['get','post'],'recipes', 'RecipesController@index')->name('recipes');
 Route::get('recipes/{id}/show', 'RecipesController@show')->name('recipes.show');
-
-/** これ不要
-Route::group(['middleware' => ['auth']], function () {
-    Route::group(['prefix' => 'recipes/{id}'], function() {
-            Route::post('menu.post', 'MenusController@store')->name('menu.post');
-    });
-});
-**/
-
 Route::get('menus','MenusController@index')->name('menus.index');

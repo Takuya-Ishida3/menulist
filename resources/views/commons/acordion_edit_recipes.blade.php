@@ -7,21 +7,30 @@
     </div>
     <div id="collapse1" class="collapse" role="tabpanel" aria-labelledby="heading1" data-parent="#accordion2">
       <div class="card-body">
-          @foreach($meats as $ingredient)
-            <div class="form-group col-sm-12 m-0">
-              <div class="row">
-                <label for="ingredient_id_{{ $ingredient->id }}">{{ $ingredient->name }}</label>
+        @foreach($meats as $ingredient)
+          <div class="form-group col-sm-12 m-0">
+            <div class="row">
+              <label for="ingredient_id_{{ $ingredient->id }}">{{ $ingredient->name }}</label>
+            </div>
+            <?php
+              $search_id = $ingredient['id'];
+              $result = array_key_exists($search_id, $required_amounts);
+              if($result){
+                $amount = $required_amounts[$search_id];
+              }else{
+              $amount = "";
+              }
+            ?>
+            <div class="row">
+              <div class="col-8">
+                <input type="text" class="form-control" name="ingredient_id_{{ $ingredient->id }}" value={{ $amount }}>
               </div>
-              <div class="row">
-              	<div class="col-8">
-                  <input type="text" class="form-control" name="ingredient_id_{{ $ingredient->id }}">
-                </div>
-                <div class="col-4">
-                  <p>{{ $ingredient->unit }}</p>
-                </div>
+              <div class="col-4">
+                <p>{{ $ingredient->unit }}</p>
               </div>
             </div>
-          @endforeach
+          </div>
+        @endforeach
       </div>
     </div>
   </div>
@@ -38,9 +47,18 @@
             <div class="row">
               <label for="ingredient_id_{{ $ingredient->id }}">{{ $ingredient->name }}</label>
             </div>
+            <?php
+              $search_id = $ingredient['id'];
+              $result = array_key_exists($search_id, $required_amounts);
+              if($result){
+                $amount = $required_amounts[$search_id];
+              }else{
+              $amount = "";
+              }
+            ?>
             <div class="row">
-            	<div class="col-8">
-                <input type="text" class="form-control" name="ingredient_id_{{ $ingredient->id }}">
+              <div class="col-8">
+                <input type="text" class="form-control" name="ingredient_id_{{ $ingredient->id }}" value={{ $amount }}>
               </div>
               <div class="col-4">
                 <p>{{ $ingredient->unit }}</p>
@@ -62,11 +80,20 @@
         @foreach($vegetables_fruits as $ingredient)
           <div class="form-group col-sm-12 m-0">
             <div class="row">
-              <label for="ingredient_id_{{ $ingredient->id }}">{{ $ingredient->name }}</label>
+              <label for="ingredient_id_{{ $ingredient->id }}">{{ $ingredient->name }}</label>  
             </div>
+            <?php
+              $search_id = $ingredient['id'];
+              $result = array_key_exists($search_id, $required_amounts);
+              if($result){
+                $amount = $required_amounts[$search_id];
+              }else{
+              $amount = "";
+              }
+            ?>
             <div class="row">
-            	<div class="col-8">
-                <input type="text" class="form-control" name="ingredient_id_{{ $ingredient->id }}">
+              <div class="col-8">
+                <input type="text" class="form-control" name="ingredient_id_{{ $ingredient->id }}" value={{ $amount }}>
               </div>
               <div class="col-4">
                 <p>{{ $ingredient->unit }}</p>
@@ -88,11 +115,20 @@
         @foreach($others as $ingredient)
           <div class="form-group col-sm-12 m-0">
             <div class="row">
-              <label for="ingredient_id_{{ $ingredient->id }}">{{ $ingredient->name }}</label>
+              <label for="ingredient_id_{{ $ingredient->id }}">{{ $ingredient->name }}</label>  
             </div>
+            <?php
+              $search_id = $ingredient['id'];
+              $result = array_key_exists($search_id, $required_amounts);
+              if($result){
+                $amount = $required_amounts[$search_id];
+              }else{
+              $amount = "";
+              }
+            ?>
             <div class="row">
-            	<div class="col-8">
-                <input type="text" class="form-control" name="ingredient_id_{{ $ingredient->id }}">
+              <div class="col-8">
+                <input type="text" class="form-control" name="ingredient_id_{{ $ingredient->id }}" value={{ $amount }}>
               </div>
               <div class="col-4">
                 <p>{{ $ingredient->unit }}</p>

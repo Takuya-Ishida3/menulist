@@ -7,7 +7,6 @@
     <div class="users.edit text-center pb-4 border-bottom">
         {!! link_to_route('users.edit','アカウント設定はこちら',['id' => Auth::id()]) !!}
     </div>
-    
     <div class="favorite_recipes_index">
         <div class="text-center m-2">
             <h5>お気に入りレシピ一覧</h5>
@@ -28,7 +27,9 @@
                   		</div>
                         <div class="card-body">
                             <h5 class="card-title border-bottom pb-2">{{$recipe->name}}</h5>
-                            <p class="card-text border-bottom pb-2">{{$recipe->comment}}</p>
+                            <pre>
+                                <p class="card-text border-bottom pb-2">{{$recipe->comment}}</p>    
+                            </pre>
                             <div class="row mb-2">
                                 <div class="col-7">
                                     {!! link_to_route('recipes.show', 'レシピ詳細', ['id' => $recipe->id], ['class' => 'btn btn-primary']) !!}
@@ -44,8 +45,7 @@
             </div>
         </div>
     </div>
-
-{{ $favorite_recipes->appends(['sort' => 'created_at'])->links() }}
-
-    
+    <div class="d-flex justify-content-center">
+        {{ $favorite_recipes->appends(['sort' => 'created_at'])->links('pagination::bootstrap-4') }} 
+    </div>
 @endsection

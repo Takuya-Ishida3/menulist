@@ -93,6 +93,7 @@ class RecipesController extends Controller
      */
     public function store(Request $request)
     {   
+        //dd($request->all());
         //レシピの名前を取得
         $name ='';
         $name = $request->name;
@@ -134,8 +135,7 @@ class RecipesController extends Controller
         foreach($ingredients as $ingredient){
             
             //材料の分量を取得
-            $amount=$request->$ingredient;
-        
+            $amount = $request->{"ingredient_id_" . $ingredient};
             if(!empty($amount)){
                 //材料の分量を保存
                 $ingredients_for_cooking = new IngredientsForCooking;
@@ -144,10 +144,6 @@ class RecipesController extends Controller
                 $ingredients_for_cooking->required_amount = $amount;
                 $ingredients_for_cooking->save();
             }
-        
-        $validate_process = $request->validate([
-    	        'process' => 'required',
-    	]);
         
             foreach ($processes as $process) {
                 //工程を保存
@@ -209,6 +205,10 @@ class RecipesController extends Controller
         $recipe = Recipe::find($id);
         //材料を全て取得
         $ingredients = Ingredient::all();
+        $meats = Ingredient::where('categories' , '肉類')->get();
+        $seafoods = Ingredient::where('categories' , '魚介類')->get();
+        $vegetables_fruits = Ingredient::where('categories' , '野菜・果物')->get();
+        $others = Ingredient::where('categories' , 'その他')->get();
         //工程を取得
         $processes = $recipe->get_processes()->get();
         //材料の分量を取得
@@ -217,6 +217,10 @@ class RecipesController extends Controller
             'id' => $id,
             'recipe' => $recipe,
             'ingredients' => $ingredients,
+            'meats' => $meats,
+            'seafoods' => $seafoods,
+            'vegetables_fruits' => $vegetables_fruits,
+            'others' => $others,
             'processes' => $processes,
             'required_amounts' => $required_amounts
         ];
@@ -272,7 +276,7 @@ class RecipesController extends Controller
         
         foreach($ingredients as $ingredient){
             //分量を取得
-            $amount=$request->$ingredient;
+            $amount=$request->{"ingredient_id_" . $ingredient};;
             
             if(!empty($amount)){
                 //分量を保存
@@ -286,10 +290,6 @@ class RecipesController extends Controller
         
         //工程を一度削除
         DB::table('how_to_cooks')->where('recipe_id',$id)->delete();
-        
-        $validate_process = $request->validate([
-    	        'process' => 'required'
-    	]);
     	
         foreach ($processes as $process) {
             //工程を保存

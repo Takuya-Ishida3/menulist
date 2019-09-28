@@ -29,7 +29,9 @@
                     @include('commons.favorite_button')
                   </dic>
                 </div>
-                <p class="card-text pb-2 border-bottom">{{$recipe->comment}}</p>
+                <pre>
+                  <p class="card-text pb-2 border-bottom">{{$recipe->comment}}</p>  
+                </pre>
                 <div class="row mb-2">
                   <div class="col-6">
                     {!! link_to_route('recipes.show', 'レシピ詳細', ['id' => $recipe->id], ['class' => 'btn btn-primary btn-sm btn-block']) !!}
@@ -39,9 +41,8 @@
             </div>
     @endforeach    
   </div>
-  
+  <div class="d-flex justify-content-center">
+    {{ $recipes->appends(['sort' => 'created_at'])->links('pagination::bootstrap-4') }} 
+  </div>
 </div>
-
-{{ $recipes->appends(['sort' => 'created_at'])->links() }}
-
 @endsection

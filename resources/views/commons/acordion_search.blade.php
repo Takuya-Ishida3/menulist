@@ -5,7 +5,7 @@
         <a data-toggle="collapse" class="text-body stretched-link text-decoration-none" href="#collapse1" aria-expanded="true" aria-controls="collapse1">肉類</a>
       </h5>
     </div>
-    <div id="collapse1" class="collapse show" role="tabpanel" aria-labelledby="heading1" data-parent="#accordion2">
+    <div id="collapse1" class="collapse" role="tabpanel" aria-labelledby="heading1" data-parent="#accordion2">
       <div class="card-body">
         @foreach($meats as $ingredient)
           <div class="form-check form-check-inline">

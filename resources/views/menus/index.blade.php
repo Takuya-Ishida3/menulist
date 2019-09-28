@@ -23,13 +23,22 @@
                   </a>
                 </div>
                 <div class="card-body">
-                  <h1 class="card-title">{{$monday_menu->name}}</h1>
-                  <p class="card-text">{{$monday_menu->comment}}</p>
-                  @if (Auth::user()->confirm_menu($monday_menu->id))
-                    {!! Form::open(['route' => ['unassociate_with_menu', $monday_menu->pivot->id], 'method' => 'delete']) !!}
-                      {!! Form::submit('献立から削除', ['class' => "btn btn-danger"]) !!}
-                    {!! Form::close() !!}
-                  @endif
+                  <h5 class="card-title">{{$monday_menu->name}}</h5>
+                  <pre>
+                    <p class="card-text">{{$monday_menu->comment}}</p>
+                  </pre>
+                  <div class="row">
+                    <div class="col-6">
+                      {!! link_to_route('recipes.show', 'レシピ詳細', ['id' => $monday_menu->id], ['class' => 'btn btn-primary']) !!}  
+                    </div>
+                    <div class="col-6">
+                      @if (Auth::user()->confirm_menu($monday_menu->id))
+                        {!! Form::open(['route' => ['unassociate_with_menu', $monday_menu->pivot->id], 'method' => 'delete']) !!}
+                          {!! Form::submit('献立から削除', ['class' => "btn btn-danger"]) !!}
+                        {!! Form::close() !!}
+                      @endif    
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -46,16 +55,27 @@
             <div class="show_recipes">
               <div class="card">
                 <div class="recipes_images">
-                	<img class="card-img-top" src="{{'https://s3-ap-northeast-1.amazonaws.com/menu-list/'. $tuesday_menu->image_name}}" alt="カードの画像">
+                  <a href="{{ route('recipes.show',$tuesday_menu->id) }}">
+                	  <img class="card-img-top" src="{{'https://s3-ap-northeast-1.amazonaws.com/menu-list/'. $tuesday_menu->image_name}}" alt="カードの画像">
+                  </a>
                 </div>
                 <div class="card-body">
-                  <h1 class="card-title">{{$tuesday_menu->name}}</h1>
-                  <p class="card-text">{{$tuesday_menu->comment}}</p>
-                  @if (Auth::user()->confirm_menu($tuesday_menu->id))
-                    {!! Form::open(['route' => ['unassociate_with_menu', $tuesday_menu->pivot->id], 'method' => 'delete']) !!}
-                      {!! Form::submit('献立から削除', ['class' => "btn btn-danger"]) !!}
-                    {!! Form::close() !!}
-                  @endif
+                  <h5 class="card-title">{{$tuesday_menu->name}}</h5>
+                  <pre>
+                    <p class="card-text">{{$tuesday_menu->comment}}</p>  
+                  </pre>
+                  <div class="row">
+                    <div class="col-6">
+                      {!! link_to_route('recipes.show', 'レシピ詳細', ['id' => $tuesday_menu->id], ['class' => 'btn btn-primary']) !!}  
+                    </div>
+                    <div class="col-6">
+                      @if (Auth::user()->confirm_menu($tuesday_menu->id))
+                        {!! Form::open(['route' => ['unassociate_with_menu', $tuesday_menu->pivot->id], 'method' => 'delete']) !!}
+                          {!! Form::submit('献立から削除', ['class' => "btn btn-danger"]) !!}
+                        {!! Form::close() !!}
+                      @endif    
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -72,16 +92,27 @@
             <div class="show_recipes">
               <div class="card">
                 <div class="recipes_images">
-                  <img class="card-img-top" src="{{'https://s3-ap-northeast-1.amazonaws.com/menu-list/'. $wednesday_menu->image_name}}" alt="カードの画像">
+                  <a href="{{ route('recipes.show',$wednesday_menu->id) }}">
+                    <img class="card-img-top" src="{{'https://s3-ap-northeast-1.amazonaws.com/menu-list/'. $wednesday_menu->image_name}}" alt="カードの画像">
+                  </a>
                 </div>
                 <div class="card-body">
-                  <h1 class="card-title">{{$wednesday_menu->name}}</h1>
-                  <p class="card-text">{{$wednesday_menu->comment}}</p>
-                  @if (Auth::user()->confirm_menu($wednesday_menu->id))
-                    {!! Form::open(['route' => ['unassociate_with_menu', $wednesday_menu->pivot->id], 'method' => 'delete']) !!}
-                      {!! Form::submit('献立から削除', ['class' => "btn btn-danger"]) !!}
-                    {!! Form::close() !!}
-                  @endif
+                  <h5 class="card-title">{{$wednesday_menu->name}}</h5>
+                  <pre>
+                    <p class="card-text">{{$wednesday_menu->comment}}</p>  
+                  </pre>
+                  <div class="row">
+                    <div class="col-6">
+                      {!! link_to_route('recipes.show', 'レシピ詳細', ['id' => $wednesday_menu->id], ['class' => 'btn btn-primary']) !!}  
+                    </div>
+                    <div class="col-6">
+                      @if (Auth::user()->confirm_menu($wednesday_menu->id))
+                        {!! Form::open(['route' => ['unassociate_with_menu', $wednesday_menu->pivot->id], 'method' => 'delete']) !!}
+                          {!! Form::submit('献立から削除', ['class' => "btn btn-danger"]) !!}
+                        {!! Form::close() !!}
+                      @endif    
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -98,16 +129,27 @@
             <div class="show_recipes">
               <div class="card">
                 <div class="recipes_images">
-                  <img class="card-img-top" src="{{'https://s3-ap-northeast-1.amazonaws.com/menu-list/'. $thursday_menu->image_name}}" alt="カードの画像">
+                  <a href="{{ route('recipes.show',$thursday_menu->id) }}">
+                    <img class="card-img-top" src="{{'https://s3-ap-northeast-1.amazonaws.com/menu-list/'. $thursday_menu->image_name}}" alt="カードの画像">
+                  </a>
                 </div>
                 <div class="card-body">
-                  <h1 class="card-title">{{$thursday_menu->name}}</h1>
-                  <p class="card-text">{{$thursday_menu->comment}}</p>
-                  @if (Auth::user()->confirm_menu($thursday_menu->id))
-                    {!! Form::open(['route' => ['unassociate_with_menu', $thursday_menu->pivot->id], 'method' => 'delete']) !!}
-                      {!! Form::submit('献立から削除', ['class' => "btn btn-danger"]) !!}
-                    {!! Form::close() !!}
-                  @endif
+                  <h5 class="card-title">{{$thursday_menu->name}}</h5>
+                  <pre>
+                    <p class="card-text">{{$thursday_menu->comment}}</p>  
+                  </pre>
+                  <div class="row">
+                    <div class="col-6">
+                      {!! link_to_route('recipes.show', 'レシピ詳細', ['id' => $thursday_menu->id], ['class' => 'btn btn-primary']) !!}  
+                    </div>
+                    <div class="col-6">
+                      @if (Auth::user()->confirm_menu($thursday_menu->id))
+                        {!! Form::open(['route' => ['unassociate_with_menu', $thursday_menu->pivot->id], 'method' => 'delete']) !!}
+                          {!! Form::submit('献立から削除', ['class' => "btn btn-danger"]) !!}
+                        {!! Form::close() !!}
+                      @endif    
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -124,16 +166,27 @@
             <div class="show_recipes">
               <div class="card">
                 <div class="recipes_images">
-              	  <img class="card-img-top" src="{{'https://s3-ap-northeast-1.amazonaws.com/menu-list/'. $friday_menu->image_name}}" alt="カードの画像">
+                  <a href="{{ route('recipes.show',$friday_menu->id) }}">
+              	    <img class="card-img-top" src="{{'https://s3-ap-northeast-1.amazonaws.com/menu-list/'. $friday_menu->image_name}}" alt="カードの画像">
+                  </a>
                 </div>
                 <div class="card-body">
-                  <h1 class="card-title">{{$friday_menu->name}}</h1>
-                  <p class="card-text">{{$friday_menu->comment}}</p>
-                  @if (Auth::user()->confirm_menu($friday_menu->id))
-                    {!! Form::open(['route' => ['unassociate_with_menu', $friday_menu->pivot->id], 'method' => 'delete']) !!}
-                      {!! Form::submit('献立から削除', ['class' => "btn btn-danger"]) !!}
-                    {!! Form::close() !!}
-                  @endif
+                  <h5 class="card-title">{{$friday_menu->name}}</h5>
+                  <pre>
+                    <p class="card-text">{{$friday_menu->comment}}</p>  
+                  </pre>
+                  <div class="row">
+                    <div class="col-6">
+                      {!! link_to_route('recipes.show', 'レシピ詳細', ['id' => $friday_menu->id], ['class' => 'btn btn-primary']) !!}  
+                    </div>
+                    <div class="col-6">
+                      @if (Auth::user()->confirm_menu($friday_menu->id))
+                        {!! Form::open(['route' => ['unassociate_with_menu', $friday_menu->pivot->id], 'method' => 'delete']) !!}
+                          {!! Form::submit('献立から削除', ['class' => "btn btn-danger"]) !!}
+                        {!! Form::close() !!}
+                      @endif    
+                    </div>
+                  </div>
               	</div>
                </div>
             </div>
@@ -150,16 +203,27 @@
             <div class="show_recipes">
                <div class="card">
                 <div class="recipes_images">
-                	<img class="card-img-top" src="{{'https://s3-ap-northeast-1.amazonaws.com/menu-list/'. $saturday_menu->image_name}}" alt="カードの画像">
+                  <a href="{{ route('recipes.show',$saturday_menu->id) }}">
+                	  <img class="card-img-top" src="{{'https://s3-ap-northeast-1.amazonaws.com/menu-list/'. $saturday_menu->image_name}}" alt="カードの画像">
+                  </a>
                 </div>
                 <div class="card-body">
-                  <h1 class="card-title">{{$saturday_menu->name}}</h1>
-                  <p class="card-text">{{$saturday_menu->comment}}</p>
-                  @if (Auth::user()->confirm_menu($saturday_menu->id))
-                    {!! Form::open(['route' => ['unassociate_with_menu', $saturday_menu->pivot->id], 'method' => 'delete']) !!}
-                      {!! Form::submit('献立から削除', ['class' => "btn btn-danger"]) !!}
-                    {!! Form::close() !!}
-                   @endif
+                  <h5 class="card-title">{{$saturday_menu->name}}</h5>
+                  <pre>
+                    <p class="card-text">{{$saturday_menu->comment}}</p>  
+                  </pre>
+                  <div class="row">
+                    <div class="col-6">
+                      {!! link_to_route('recipes.show', 'レシピ詳細', ['id' => $saturday_menu->id], ['class' => 'btn btn-primary']) !!}  
+                    </div>
+                    <div class="col-6">
+                      @if (Auth::user()->confirm_menu($saturday_menu->id))
+                        {!! Form::open(['route' => ['unassociate_with_menu', $saturday_menu->pivot->id], 'method' => 'delete']) !!}
+                          {!! Form::submit('献立から削除', ['class' => "btn btn-danger"]) !!}
+                        {!! Form::close() !!}
+                      @endif    
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -176,16 +240,27 @@
             <div class="show_recipes">
               <div class="card">
                 <div class="recipes_images">
-                  <img class="card-img-top" src="{{'https://s3-ap-northeast-1.amazonaws.com/menu-list/'. $sunday_menu->image_name}}" alt="カードの画像">
+                  <a href="{{ route('recipes.show',$sunday_menu->id) }}">
+                    <img class="card-img-top" src="{{'https://s3-ap-northeast-1.amazonaws.com/menu-list/'. $sunday_menu->image_name}}" alt="カードの画像">
+                  </a>
                 </div>
                 <div class="card-body">
-                  <h1 class="card-title">{{$sunday_menu->name}}</h1>
-                  <p class="card-text">{{$sunday_menu->comment}}</p>
-                  @if (Auth::user()->confirm_menu($sunday_menu->id))
-                    {!! Form::open(['route' => ['unassociate_with_menu', $sunday_menu->pivot->id], 'method' => 'delete']) !!}
-                      {!! Form::submit('献立から削除', ['class' => "btn btn-danger"]) !!}
-                    {!! Form::close() !!}
-                  @endif
+                  <h5 class="card-title">{{$sunday_menu->name}}</h5>
+                  <pre>
+                    <p class="card-text">{{$sunday_menu->comment}}</p>  
+                  </pre>
+                  <div class="row">
+                    <div class="col-6">
+                      {!! link_to_route('recipes.show', 'レシピ詳細', ['id' => $sunday_menu->id], ['class' => 'btn btn-primary']) !!}  
+                    </div>
+                    <div class="col-6">
+                      @if (Auth::user()->confirm_menu($sunday_menu->id))
+                        {!! Form::open(['route' => ['unassociate_with_menu', $sunday_menu->pivot->id], 'method' => 'delete']) !!}
+                          {!! Form::submit('献立から削除', ['class' => "btn btn-danger"]) !!}
+                        {!! Form::close() !!}
+                      @endif    
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

@@ -23,7 +23,9 @@
                             @include('commons.edit_recipe_button')
                         </div>
                     </div>
-                    <p class="card-text border-top border-bottom pb-2 pt-2">{{$recipe->comment}}</p>
+                    <pre>
+                        <p class="card-text border-top border-bottom pb-2 pt-2">{{$recipe->comment}}</p>   
+                    </pre>
                     <div class="ingredients">
                         <div class="row">
                             <h5 class="col-12">材料({{ $family_size }}人分)</h5>
@@ -48,11 +50,21 @@
                             <?php $i=0; ?>
                             @foreach($processes as $process)
                                 <?php $i++; ?>
-                                <p class="border-top pt-2">工程{{ $i }}：{{ $process->process }}</p>
+                                <div class="row border-top pt-2">
+                                    <div class="col-12">
+                                        <p>工程{{ $i }}：</p>    
+                                    </div>
+                                </div>
+                                <div class="row border-bottom pb-2">
+                                    <div class="col-12">
+                                        <pre>
+                                            <p class="card-text">{{ $process->process }}</p>
+                                        </pre>
+                                    </div>
+                                </div>
                             @endforeach
                         </div>
                     </div>
-                    
               	</div>
             </div>    
         </div>

@@ -11,6 +11,7 @@
                     <li class="nav-item dropdowm">
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">メニュー</a>
                         <ul class="dropdown-menu dropdown-menu-right">
+                            <li class="dropdown-item"><a href="/">トップページ</a></li>
                             <li class="dropdown-item">{!! link_to_route('users.show','お気に入り一覧', ['id' => Auth::id()]) !!}</li>
                             <li class="dropdown-item">{!! link_to_route('users.edit','アカウント設定', ['id' => Auth::id()]) !!}</li>
                             @if(Auth::user()->admin_flag == 1)
