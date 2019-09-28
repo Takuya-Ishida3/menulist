@@ -24,10 +24,10 @@
                 </div>
                 <div class="card-body">
                   <h5 class="card-title">{{$monday_menu->name}}</h5>
-                  <pre>
-                    <p class="card-text">{{$monday_menu->comment}}</p>
-                  </pre>
-                  <div class="row">
+                  <div class="comment border-top border-bottom">
+                    <p class="card-text">コメント<br>{{$monday_menu->comment}}</p>  
+                  </div>
+                  <div class="row mt-3">
                     <div class="col-6">
                       {!! link_to_route('recipes.show', 'レシピ詳細', ['id' => $monday_menu->id], ['class' => 'btn btn-primary']) !!}  
                     </div>
@@ -61,10 +61,10 @@
                 </div>
                 <div class="card-body">
                   <h5 class="card-title">{{$tuesday_menu->name}}</h5>
-                  <pre>
-                    <p class="card-text">{{$tuesday_menu->comment}}</p>  
-                  </pre>
-                  <div class="row">
+                  <div class="comment border-top border-bottom">
+                    <p class="card-text">コメント<br>{{$tuesday_menu->comment}}</p>  
+                  </div>
+                  <div class="row mt-3">
                     <div class="col-6">
                       {!! link_to_route('recipes.show', 'レシピ詳細', ['id' => $tuesday_menu->id], ['class' => 'btn btn-primary']) !!}  
                     </div>
@@ -98,10 +98,10 @@
                 </div>
                 <div class="card-body">
                   <h5 class="card-title">{{$wednesday_menu->name}}</h5>
-                  <pre>
-                    <p class="card-text">{{$wednesday_menu->comment}}</p>  
-                  </pre>
-                  <div class="row">
+                  <div class="comment border-top border-bottom">
+                    <p class="card-text">コメント<br>{{$wednesday_menu->comment}}</p>  
+                  </div>
+                  <div class="row mt-3">
                     <div class="col-6">
                       {!! link_to_route('recipes.show', 'レシピ詳細', ['id' => $wednesday_menu->id], ['class' => 'btn btn-primary']) !!}  
                     </div>
@@ -135,10 +135,10 @@
                 </div>
                 <div class="card-body">
                   <h5 class="card-title">{{$thursday_menu->name}}</h5>
-                  <pre>
-                    <p class="card-text">{{$thursday_menu->comment}}</p>  
-                  </pre>
-                  <div class="row">
+                  <div class="comment border-top border-bottom">
+                    <p class="card-text">コメント<br>{{$thursday_menu->comment}}</p>  
+                  </div>
+                  <div class="row mt-3">
                     <div class="col-6">
                       {!! link_to_route('recipes.show', 'レシピ詳細', ['id' => $thursday_menu->id], ['class' => 'btn btn-primary']) !!}  
                     </div>
@@ -172,10 +172,10 @@
                 </div>
                 <div class="card-body">
                   <h5 class="card-title">{{$friday_menu->name}}</h5>
-                  <pre>
-                    <p class="card-text">{{$friday_menu->comment}}</p>  
-                  </pre>
-                  <div class="row">
+                  <div class="comment border-top border-bottom">
+                    <p class="card-text">コメント<br>{{$friday_menu->comment}}</p>  
+                  </div>
+                  <div class="row mt-3">
                     <div class="col-6">
                       {!! link_to_route('recipes.show', 'レシピ詳細', ['id' => $friday_menu->id], ['class' => 'btn btn-primary']) !!}  
                     </div>
@@ -209,10 +209,10 @@
                 </div>
                 <div class="card-body">
                   <h5 class="card-title">{{$saturday_menu->name}}</h5>
-                  <pre>
-                    <p class="card-text">{{$saturday_menu->comment}}</p>  
-                  </pre>
-                  <div class="row">
+                  <div class="comment border-top border-bottom">
+                    <p class="card-text">コメント<br>{{$saturday_menu->comment}}</p>  
+                  </div>
+                  <div class="row mt-3">
                     <div class="col-6">
                       {!! link_to_route('recipes.show', 'レシピ詳細', ['id' => $saturday_menu->id], ['class' => 'btn btn-primary']) !!}  
                     </div>
@@ -246,10 +246,10 @@
                 </div>
                 <div class="card-body">
                   <h5 class="card-title">{{$sunday_menu->name}}</h5>
-                  <pre>
-                    <p class="card-text">{{$sunday_menu->comment}}</p>  
-                  </pre>
-                  <div class="row">
+                  <div class="comment border-top border-bottom">
+                    <p class="card-text">コメント<br>{{$sunday_menu->comment}}</p>  
+                  </div>
+                  <div class="row mt-3">
                     <div class="col-6">
                       {!! link_to_route('recipes.show', 'レシピ詳細', ['id' => $sunday_menu->id], ['class' => 'btn btn-primary']) !!}  
                     </div>
@@ -272,7 +272,7 @@
           @endif
       </div>
     </div>
-    <div class="mt-2">
-      {!! link_to_route('menus.ingredients_list', '材料一覧へ', ['id' => Auth::user()->id]) !!}
+    <div class="mt-2 mb-2">
+      {!! link_to_route('menus.ingredients_list', '買い物リスト', ['id' => Auth::user()->id]) !!}
     </div>
 @endsection

@@ -22,18 +22,18 @@
       		    </div>
               <div class="card-body">
                 <div class="row">
-                  <div class="col-7 border-bottom">
+                  <div class="col-12">
                     <h5 class="card-title">{{$recipe->name}}</h5>
                   </div>
-                  <dic class="col-5 border-bottom">
+                </div>
+                <div class="comment border-top border-bottom">
+                  <p class="card-text">コメント<br>{{$recipe->comment}}</p>  
+                </div>
+                <div class="row mb-2">
+                  <dic class="offset-7 col-5 mt-2 mb-2">
                     @include('commons.favorite_button')
                   </dic>
-                </div>
-                <pre>
-                  <p class="card-text pb-2 border-bottom">{{$recipe->comment}}</p>  
-                </pre>
-                <div class="row mb-2">
-                  <div class="col-6">
+                  <div class="col-12">
                     {!! link_to_route('recipes.show', 'レシピ詳細', ['id' => $recipe->id], ['class' => 'btn btn-primary btn-sm btn-block']) !!}
                   </div>
                 </div>

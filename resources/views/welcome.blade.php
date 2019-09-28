@@ -23,6 +23,8 @@
             <p>そんな時はMenu-listにお任せ！</p>
             <p>ボタン1つでのその日の献立が作成できちゃいます!</p>
         </div>
+    </div>
+    <div class="about_box border-bottom pt-4">
         <div class="row">
             <div class="box offset-sm-2 col-sm-2">
                 <div class="box_img">

@@ -26,19 +26,40 @@
                   		    </a>
                   		</div>
                         <div class="card-body">
-                            <h5 class="card-title border-bottom pb-2">{{$recipe->name}}</h5>
-                            <pre>
-                                <p class="card-text border-bottom pb-2">{{$recipe->comment}}</p>    
-                            </pre>
-                            <div class="row mb-2">
-                                <div class="col-7">
-                                    {!! link_to_route('recipes.show', 'レシピ詳細', ['id' => $recipe->id], ['class' => 'btn btn-primary']) !!}
+                            <h5 class="card-title pb-2">{{$recipe->name}}</h5>
+                                <div class="comment border-top border-bottom">
+                                  <p class="card-text">コメント<br>{{$recipe->comment}}</p>  
                                 </div>
-                                <div class="col-5">
+                            <div class="row mt-2 mb-2">
+                                <div class="offset-7 col-5">
                                     @include('commons.favorite_button')
                                 </div>
                             </div>
-                            @include('commons.associate_with_menu_button_$recipe')
+                            @if(Auth::check())
+                                {!! Form::open(['route' => ['associate_with_menu', $recipe->id]]) !!}
+                                    <div class="row">
+                                        <div class="col-12 mb-2">
+                                            <div class="input-group date" id="<?php echo $dtpId;?>" data-target-input="nearest">
+                                                <label for="<?php echo $dtpId;?>" class="pt-2 pr-2">日付:</label>
+                                                <input type="text" name="date" class="form-control datetimepicker-input" data-target="#<?php echo $dtpId;?>"/>
+                                                <div class="input-group-append" data-target="#<?php echo $dtpId;?>" data-toggle="datetimepicker">
+                                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-6">
+                                            {!! link_to_route('recipes.show', 'レシピ詳細', ['id' => $recipe->id], ['class' => 'btn btn-primary']) !!}
+                                        </div>
+                                        <div class="col-6">
+                                            @if(Auth::check())
+                                                {!! Form::submit('献立に追加', ['class' => "btn btn-primary form-group"]) !!}
+                                            @endif
+                                        </div>
+                                    </div>
+                                {!! Form::close() !!}
+                            @endif
                   	    </div>
                     </div>
                 @endforeach

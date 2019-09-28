@@ -11,6 +11,7 @@
                     {!! Form::label('name', 'レシピ名') !!}
                     {!! Form::text('name', $recipe->name , ['class' => 'form-control']) !!}
                 </div>
+                <p>現在登録中の画像</p>
                 <img class="card-img-top" src="{{'https://s3-ap-northeast-1.amazonaws.com/menu-list/'. $recipe->image_name}}" alt="カードの画像">
                 <div class="form-group">
                     {!! Form::label('image_name', '画像アップロード') !!}

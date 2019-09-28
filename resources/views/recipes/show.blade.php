@@ -36,7 +36,7 @@
                                     <tbody>
                                         @foreach($ingredients as $ingredient)
                                             <tr>
-                                                <td class="text-left">材料名：{{ $ingredient->name }} </td>
+                                                <td class="text-left">{{ $ingredient->name }} </td>
                                                 <td class="text-right">{{ $required_amounts[$ingredient->id] * $family_size }} {{ $ingredient->unit }}</td>
                                             </tr>
                                         @endforeach 

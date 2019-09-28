@@ -14,9 +14,7 @@
             @if($favorite_ingredients->isEmpty())
                 <strong>※献立提案には材料のお気に入りが必要です。{!! link_to_route('users.edit','アカウント設定',['id' => Auth::id()]) !!}から登録してください。</strong>
             @endif
-            
         </div>
-        
     </div>
     {!! Form::close() !!}
 @endif
