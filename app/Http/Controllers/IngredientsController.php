@@ -25,7 +25,7 @@ class IngredientsController extends Controller
         //材料のidを取得
         $ingredient_ids = $ingredients->pluck('id');
         //初期化
-        $required_amounts[] = "";
+        $required_amounts = array();
         //今週の月曜の日付を取得
         $monday = new Carbon('monday this week');
         //今週の日曜の日付を取得
