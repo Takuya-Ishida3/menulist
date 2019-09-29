@@ -20,8 +20,8 @@
         </div>
         @endif
     @endif
-    @foreach($ingredients as $ingredient)
-        @if($sum[$ingredient->id]!=null)
+    @if($sum[$ingredient->id]!=null)
+        @foreach($ingredients as $ingredient)
             <div class="row">
                 <div class="offset-1 col-10">
                     <h5 class="mt-3">買い物リスト({{ Auth::user()->family_size }}人分)</h5>
@@ -35,6 +35,6 @@
                     </div>
                 </div>
             </div>
-        @endif
-    @endforeach
+        @endforeach
+    @endif
 @endsection
