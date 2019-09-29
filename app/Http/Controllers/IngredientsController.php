@@ -51,6 +51,8 @@ class IngredientsController extends Controller
             //必要な材料の分量を合計、家族全員で必要な量に換算
             $sum[$ingredient_id] = array_sum(array_column($required_amounts,$ingredient_id))*$family_size;
         }
+        dd($sum);
+        
         
         $data = [
             'user' => $user,
