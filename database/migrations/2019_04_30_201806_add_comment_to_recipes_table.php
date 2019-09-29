@@ -14,7 +14,7 @@ class AddCommentToRecipesTable extends Migration
     public function up()
     {
         Schema::table('recipes', function (Blueprint $table) {
-            $table->string('comment', 21845)->nullable(); //カラムの追加
+            $table->text('comment')->nullable(); //カラムの追加
         });
     }
 

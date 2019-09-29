@@ -16,7 +16,7 @@ class CreateHowToCooksTable extends Migration
         Schema::create('how_to_cooks', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('recipe_id')->unsigned()->index();
-            $table->string('process', 21845);
+            $table->text('process');
             $table->timestamps();
         });
     }
