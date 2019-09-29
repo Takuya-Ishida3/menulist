@@ -19,7 +19,7 @@ class IngredientsController extends Controller
         //ログイン
         $user = \Auth::user();
         //家族構成を取得
-        $family_size = $user->value('family_size');
+        $family_size = $user->family_size;
         //材料を全て取得
         $ingredients = Ingredient::all();
         //材料のidを取得
