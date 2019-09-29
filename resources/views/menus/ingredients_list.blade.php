@@ -26,6 +26,7 @@
             <h5 class="mt-3">買い物リスト({{ Auth::user()->family_size }}人分)</h5>
             <div class="show_ingredient_list mt-4">
                 <table class="table table-striped table-bordered">
+                    <?php var_dump($ingredients); ?>
                     @foreach($ingredients as $ingredient)
                         @if($sum[$ingredient->id]!=null)    
                             <tr>
