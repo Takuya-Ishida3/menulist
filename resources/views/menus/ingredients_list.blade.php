@@ -27,7 +27,6 @@
             <div class="show_ingredient_list mt-4">
                 <table class="table table-striped table-bordered">
                     @foreach($ingredients as $ingredient)
-                        <?php print($sum[$ingredient->id]); ?>
                         @if($sum[$ingredient->id]!=null)    
                             <tr>
                                 <td class="text-left">{{ $ingredient->name }}</t>
