@@ -18,7 +18,7 @@
                             <li class="dropdown-item">{!! link_to_route('recipes.create', 'レシピ投稿') !!}</li>
                             @endif
                             <li class="dropdown-item">{!! link_to_route('menus.index', '献立作成', ['id' => Auth::id()]) !!}</li>
-                            <li class="dropdown-item">{!! link_to_route('menus.ingredients_list', '材料一覧', ['id' => Auth::id()]) !!}</li>
+                            <li class="dropdown-item">{!! link_to_route('menus.ingredients_list', '買い物リスト', ['id' => Auth::id()]) !!}</li>
                             <li class="dropdown-divider"></li>
                             <li class="dropdown-item">{!! link_to_route('logout.get', 'Logout') !!}</li>
                         </ul>

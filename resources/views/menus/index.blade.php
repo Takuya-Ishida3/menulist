@@ -273,6 +273,6 @@
       </div>
     </div>
     <div class="mt-2 mb-2">
-      {!! link_to_route('menus.ingredients_list', '買い物リスト', ['id' => Auth::user()->id]) !!}
+      {!! link_to_route('menus.ingredients_list', '買い物リスト', ['id' => Auth::user()->id,]) !!}
     </div>
 @endsection

@@ -20,21 +20,21 @@
         </div>
         @endif
     @endif
-    <div class="row">
-        <div class="offset-1 col-10">
-            <h5 class="mt-3">買い物リスト</h5>
-            <div class="show_ingredient_list mt-4">
-                <table class="table table-striped table-bordered">
-                    @foreach($ingredients as $ingredient)
-                        @if($sum[$ingredient->id]!=null)
+    @foreach($ingredients as $ingredient)
+        @if($sum[$ingredient->id]!=null)
+            <div class="row">
+                <div class="offset-1 col-10">
+                    <h5 class="mt-3">買い物リスト({{ Auth::user()->family_size }}人分)</h5>
+                    <div class="show_ingredient_list mt-4">
+                        <table class="table table-striped table-bordered">
                             <tr>
                                 <td class="text-left">{{ $ingredient->name }}</t>
                                 <td class="text-right">{{ $sum[$ingredient->id]." ".$ingredient->unit }}</td>
                             </tr>
-                        @endif
-                    @endforeach
-                </table>
+                        </table>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
+        @endif
+    @endforeach
 @endsection
