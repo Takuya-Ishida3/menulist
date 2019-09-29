@@ -46,12 +46,14 @@ class IngredientsController extends Controller
             $required_amounts[] = $recipe->belongsToMany(Ingredient::class,'ingredients_for_cookings','recipe_id','ingredient_id')->withPivot('required_amount')->pluck('required_amount','ingredient_id')->toArray();
         }
         
+        dd($required_amounts);
+        
         foreach($ingredient_ids as $ingredient_id)
         {
             //必要な材料の分量を合計、家族全員で必要な量に換算
             $sum[$ingredient_id] = array_sum(array_column($required_amounts,$ingredient_id))*$family_size;
         }
-        dd($sum);
+        
         
         
         $data = [
