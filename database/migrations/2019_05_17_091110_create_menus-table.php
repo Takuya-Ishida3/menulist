@@ -24,8 +24,6 @@ class CreateMenusTable extends Migration
             //$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             //$table->foreign('recipe_id')->references('id')->on('recipes')->onDelete('cascade');
 
-            //user_idとrecipe_idの組み合わせの重複を許さない
-            //$table->unique(['user_id', 'recipe_id','YYYYMMDD']);
         });
     }
 
