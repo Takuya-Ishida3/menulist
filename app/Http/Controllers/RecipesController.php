@@ -93,7 +93,6 @@ class RecipesController extends Controller
      */
     public function store(Request $request)
     {   
-        //dd($request->all());
         //レシピの名前を取得
         $name ='';
         $name = $request->name;
@@ -136,6 +135,7 @@ class RecipesController extends Controller
             
             //材料の分量を取得
             $amount = $request->{"ingredient_id_" . $ingredient};
+            
             if(!empty($amount)){
                 //材料の分量を保存
                 $ingredients_for_cooking = new IngredientsForCooking;
@@ -144,7 +144,7 @@ class RecipesController extends Controller
                 $ingredients_for_cooking->required_amount = $amount;
                 $ingredients_for_cooking->save();
             }
-        
+        }
             foreach ($processes as $process) {
                 //工程を保存
                 $how_to_cook = new HowToCook;
@@ -153,7 +153,6 @@ class RecipesController extends Controller
                 $how_to_cook->save();
             }
             return redirect('/');
-        }
     }
 
     /**
