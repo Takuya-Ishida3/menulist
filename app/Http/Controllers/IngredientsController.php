@@ -46,7 +46,7 @@ class IngredientsController extends Controller
             $required_amounts[] = $recipe->belongsToMany(Ingredient::class,'ingredients_for_cookings','recipe_id','ingredient_id')->withPivot('required_amount')->pluck('required_amount','ingredient_id')->toArray();
         }
         
-        dd($required_amounts);
+        dd($family_size);
         
         foreach($ingredient_ids as $ingredient_id)
         {
