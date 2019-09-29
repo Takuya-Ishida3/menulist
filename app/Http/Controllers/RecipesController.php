@@ -93,6 +93,13 @@ class RecipesController extends Controller
      */
     public function store(Request $request)
     {   
+        //バリデーション
+        $validate_recipe = $request->validate([
+    	        'name' => 'required',
+    	        'image_name' => 'required',
+    	        'comment' => 'required'
+    	]);
+        
         //レシピの名前を取得
         $name ='';
         $name = $request->name;
@@ -109,13 +116,6 @@ class RecipesController extends Controller
     
         //textboxのname(processes[])から配列を取得
         $processes = $request->processes; 
-        
-        //バリデーション
-        $validate_recipe = $request->validate([
-    	        'name' => 'required',
-    	        'image_name' => 'required',
-    	        'comment' => 'required'
-    	]);
         
         //レシピを保存
         $recipe = new Recipe;
@@ -235,6 +235,12 @@ class RecipesController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validate_recipe = $request->validate([
+    	        'name' => 'required',
+    	        'image_name' => 'required',
+    	        'comment' => 'required'
+    	]);
+        
         //レシピの名前を取得
         $name ='';
         $name = $request->name;
@@ -256,12 +262,6 @@ class RecipesController extends Controller
         
         //工程を取得
         $processes = $request->processes; //textboxのname(processes[])から配列を取得
-        
-        $validate_recipe = $request->validate([
-    	        'name' => 'required',
-    	        'image_name' => 'required',
-    	        'comment' => 'required'
-    	]);
         
         //レシピを保存する
         $recipe = Recipe::find($id);
