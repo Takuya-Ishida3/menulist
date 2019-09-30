@@ -4,7 +4,7 @@
     <div class="row mt-2">
         <div class="offset-sm-3 col-sm-6">
             <div class="card img-thumbnail">
-                <div class="recipes_images">
+                <div class="main_images">
               	    <img class="card-img-top" src="{{'https://s3-ap-northeast-1.amazonaws.com/menu-list/'. $recipe->image_name}}" alt="カードの画像">
               	</div>
                 <div class="card-body">
