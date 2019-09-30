@@ -116,6 +116,13 @@ pre {
     overflow: hidden;
 }
 
+.recipes_images img {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 250px;
+}
+
 @media screen and (min-width:768px) {
     .jumbotron-extend {
     height: 250px;
