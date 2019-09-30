@@ -26,7 +26,7 @@ class ChangeIngredientsForCookingsTable extends Migration
     public function down()
     {
         Schema::table('ingredients_for_cookings', function (Blueprint $table) {
-            //
+            $table->integer('required_amount')->change();
         });
     }
 }

@@ -21,7 +21,7 @@ class CreateIngredientsForCookingsTable extends Migration
             $table->timestamps();
             
             // 外部キー設定
-            $table->foreign('recipe_id')->references('id')->on('recipes')->onDelete('cascade');
+            $table->foreign('recipe_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('ingredient_id')->references('id')->on('ingredients')->onDelete('cascade');
             
             //recipe_idとingredient_idの組み合わせの重複を許さない
