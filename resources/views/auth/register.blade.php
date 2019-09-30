@@ -31,4 +31,11 @@
             {!! Form::close() !!}
         </div>
     </div>
+    <div class="row">
+            <div class="offset-sm-3 col-sm-6 mt-5 border">
+                <P>新規ユーザーは管理権限がありません。<br>レシピ投稿機能を利用するには<br>下記ID・パスワードを用いてログインしてください</P>
+                <P>ID：admin@admin.com<br>パスワード：admin1</p>
+            </div>
+    </div>
+    
 @endsection
